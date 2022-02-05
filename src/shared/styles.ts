@@ -37,14 +37,37 @@ export const globalStyles = (theme: Theme) => css`
     font-size: 12px;
     font-weight: 400;
   }
+
   body {
     position: relative;
   }
-`;
 
-export const ContentContainer = styled.div`
-  width: 80%;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
+  a,
+  a:visited {
+    color: var(--color-white);
+  }
+
+  button {
+    font-family: "Lato", sans-serif;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  @media all and (min-width: 768px) {
+    html,
+    body {
+      font-size: 14px;
+    }
+  }
+
+  @media all and (min-width: 1100px) {
+    html,
+    body {
+      font-size: 18px;
+    }
+  }
 `;
