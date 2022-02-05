@@ -165,22 +165,19 @@ export function Navbar() {
           onClick={hideMobileMenu}
         >
           <li>
-            <Link href="#">Past Trials</Link>
+            <Link href="/">Past Trials</Link>
           </li>
           <li>
-            <Link href="#">How It Works</Link>
+            <Link href="/">How It Works</Link>
           </li>
           <li>
-            <Link href="#">Login / Sign Up</Link>
+            <Link href="/">Login / Sign Up</Link>
           </li>
           <li>
-            <form
-            // action="javascript:void(0)"
-            >
+            <form>
               <input css={nav__searchInput} aria-label="search" type="text" />
               <IconButton css={nav__search} title="Search" type="submit">
                 <Image src={search} alt="search" />
-                {/*<Image src="/img/search.svg" alt="search" height="24px" width="24px" />*/}
               </IconButton>
             </form>
           </li>
