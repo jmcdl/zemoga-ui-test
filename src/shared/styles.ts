@@ -1,4 +1,5 @@
-import { Theme } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
+import styled from "@emotion/styled";
 
 export const theme: Theme = {
   colors: {
@@ -25,3 +26,25 @@ export const theme: Theme = {
     footerHeight: "85px",
   },
 };
+
+export const globalStyles = (theme: Theme) => css`
+  html,
+  body {
+    width: 100%;
+    margin: 0;
+    background-color: ${theme.colors.white};
+    font-family: "Lato", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  body {
+    position: relative;
+  }
+`;
+
+export const ContentContainer = styled.div`
+  width: 80%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+`;
