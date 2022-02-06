@@ -2,8 +2,8 @@ import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Header from "../components/Header";
 import { MaxContentContainer } from "src/shared/styled-components";
-import { BottomBanner } from "src/components/BottomBanner";
-import { TopBanner } from "../components/TopBanner";
+import { BottomBanner } from "src/components/Banners/BottomBanner";
+import { TopBanner } from "src/components/Banners/TopBanner";
 
 function HomePage() {
   return (

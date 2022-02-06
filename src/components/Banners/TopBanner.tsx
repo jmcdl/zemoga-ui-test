@@ -1,9 +1,9 @@
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 import { Banner, IconButton } from "src/shared/styled-components";
 
-const bannerTop__text = css`
+const bannerTop__text = (theme: Theme) => css`
   margin: 0;
-  color: var(--color-dark-gray);
+  color: ${theme.colors.darkGray};
   font-size: 1.25rem;
   font-weight: 300;
   letter-spacing: -0.05rem;
@@ -23,8 +23,8 @@ const bannerTop__left = css`
   }
 `;
 
-const bannerTop__hairline = css`
-  color: var(--color-dark-gray);
+const bannerTop__hairline = (theme: Theme) => css`
+  color: ${theme.colors.darkGray};
   font-size: 1.25rem;
   font-weight: 300;
   letter-spacing: -0.07rem;
@@ -33,9 +33,9 @@ const bannerTop__hairline = css`
   }
 `;
 
-const bannerTop__title = css`
+const bannerTop__title = (theme: Theme) => css`
   display: block;
-  color: var(--color-dark-gray);
+  color: ${theme.colors.darkGray};
   font-size: 2rem;
   font-weight: 700;
   letter-spacing: -0.05rem;
