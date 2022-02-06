@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { css, Theme } from "@emotion/react";
-import { IconButton, MaxContentContainer } from "../shared/styled-components";
+import { IconButton, MaxContentContainer } from "../../shared/styled-components";
 import { MouseEvent, useState } from "react";
 import search from "/public/img/search.svg";
 
