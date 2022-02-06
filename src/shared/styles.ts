@@ -3,10 +3,10 @@ import styled from "@emotion/styled";
 
 export const theme: Theme = {
   colors: {
-    greenPositiveLight: `rgba(60, 187, 180, .8)`,
-    greenPositiveDark: `rgba(60, 187, 180, 1)`,
-    yellowPositiveLight: `rgba(249, 173, 29, .8)`,
-    yellowPositiveDark: `rgba(249, 173, 29, 1)`,
+    greenPositiveDark: `rgba(60, 187, 180, .8)`,
+    greenPositiveLight: `rgba(60, 187, 180, 1)`,
+    yellowPositiveDark: `rgba(249, 173, 29, .8)`,
+    yellowPositiveLight: `rgba(249, 173, 29, 1)`,
     darkBackground: `rgba(0, 0, 0, .4)`,
     darkerBackground: `rgba(0, 0, 0, .6)`,
     darkerGray: `rgba(51, 51, 51, 1)`,
