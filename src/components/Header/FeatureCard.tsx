@@ -1,8 +1,5 @@
 import { css, Theme } from "@emotion/react";
-import Image from "next/image";
-import { IconButton } from "../../shared/styled-components";
-import thumbsUpIcon from "/public/img/thumbs-up.svg";
-import thumbsDownIcon from "/public/img/thumbs-down.svg";
+import { IconButton } from "src/shared/styled-components";
 
 const hero__featuredCard = css`
   position: relative;
@@ -33,12 +30,34 @@ const featuredCard__glassBackground = (theme: Theme) => css`
       ),
     -25vw 0/160vw no-repeat url("/img/pope-francis.png");
   filter: blur(1rem);
+  @media all and (min-width: 768px) {
+    background: center no-repeat
+        linear-gradient(
+        ${theme.colors.darkBackground},
+        ${theme.colors.darkBackground}
+        ),
+      7vw -6.5rem/115vw auto no-repeat url("/img/pope-francis.png");
+  }
+  @media all and (min-width: 1100px) {
+    background: center no-repeat
+        linear-gradient(
+        ${theme.colors.darkBackground},
+        ${theme.colors.darkBackground}
+        ),
+      calc(-50vw + 650px) -6rem/105vw auto no-repeat url("/img/pope-francis.png");
+  }
 `;
 
 const featuredCard__content = (theme: Theme) => css`
   position: relative;
   padding: 1rem;
   color: ${theme.colors.white};
+  @media all and (min-width: 768px) {
+    padding: 2rem 1.5rem;
+  }
+  @media all and (min-width: 1100px) {
+    padding: 2rem 1.5rem;
+  }
 `;
 
 const featuredCard__hairline = css`
@@ -64,10 +83,19 @@ const featuredCard__desc = css`
   font-weight: 300;
   -webkit-line-clamp: 6;
   text-overflow: ellipsis;
+  @media all and (min-width: 1100px) {
+    max-width: 85%;
+    margin: 2rem 0 1rem;
+  }
 `;
 
 const featuredCard__moreInfo = css`
   display: none;
+  @media all and (min-width: 768px) {
+    display: inline-block;
+    margin: 0;
+    font-weight: 300;
+  }
 `;
 
 const featuredCard__moreInfoIcon = css`
@@ -78,17 +106,30 @@ const featuredCard__moreInfoIcon = css`
 
 const featuredCard__cta = css`
   font-weight: 700;
+  @media all and (min-width: 1100px) {
+    margin: 1rem 0 2rem;
+    font-size: 1.5rem;
+  }
 `;
 
 const featuredCard__buttons = css`
   display: flex;
   justify-content: space-between;
   margin: 0 -1rem -1rem;
+  @media all and (min-width: 768px) {
+    margin: 0 -1.5rem -2rem;
+    @media all and (min-width: 1100px) {
+      margin: 0 -1.5rem -2rem;
+    }
+  }
 `;
 
 const featuredCard__button = css`
   width: 50%;
   height: 2.75rem;
+  @media all and (min-width: 1100px) {
+    height: auto;
+  }
 `;
 
 const thumbsUp = (theme: Theme) => css`
@@ -107,6 +148,13 @@ const thumbsDown = (theme: Theme) => css`
 
 const featuredCard__buttonImg = css`
   max-width: 1.25rem;
+  height: 100%;
+  width: 100%;
+  @media all and (min-width: 1100px) {
+    max-width: 2rem;
+    height: 2rem;
+    margin: 1.3rem 0;
+  }
 `;
 
 export function FeaturedCard() {
@@ -143,8 +191,8 @@ export function FeaturedCard() {
             css={[featuredCard__button, thumbsUp]}
             color="green"
           >
-            <Image
-              src={thumbsUpIcon}
+            <img
+              src="/img/thumbs-up.svg"
               alt="thumbs up"
               css={featuredCard__buttonImg}
             />
@@ -153,8 +201,8 @@ export function FeaturedCard() {
             aria-label="thumbs down"
             css={[featuredCard__button, thumbsDown]}
           >
-            <Image
-              src={thumbsDownIcon}
+            <img
+              src="/img/thumbs-down.svg"
               alt="thumbs down"
               css={featuredCard__buttonImg}
             />
