@@ -1,9 +1,9 @@
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Header from "../components/Header";
-import { MaxContentContainer } from "src/shared/styled-components";
-import { BottomBanner } from "src/components/Banners/BottomBanner";
-import { TopBanner } from "src/components/Banners/TopBanner";
+import { MaxContentContainer } from "src/components/shared/styled-components";
+import { BottomBanner } from "src/components/Banner";
+import { TopBanner } from "src/components/Banner";
 
 function HomePage() {
   return (
@@ -17,10 +17,8 @@ function HomePage() {
       <Header />
       <MaxContentContainer>
         <TopBanner />
-        <main>
-
-        </main>
-      <BottomBanner />
+        <main></main>
+        <BottomBanner />
       </MaxContentContainer>
     </>
   );

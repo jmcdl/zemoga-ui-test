@@ -1,5 +1,5 @@
 import { css, Theme } from "@emotion/react";
-import { Banner, IconButton } from "src/shared/styled-components";
+import { Banner, IconButton } from "src/components/shared/styled-components";
 
 const bannerTop__text = (theme: Theme) => css`
   margin: 0;

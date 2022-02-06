@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { MaxContentContainer } from "src/shared/styled-components";
+import { MaxContentContainer } from "src/components/shared/styled-components";
 import { FeaturedCard } from "./FeatureCard";
 import { ClosingGauge } from "./ClosingGauge";
 

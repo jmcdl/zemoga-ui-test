@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { css, Theme } from "@emotion/react";
-import { IconButton, MaxContentContainer } from "src/shared/styled-components";
+import { IconButton, MaxContentContainer } from "src/components/shared/styled-components";
 import { MouseEvent, useState } from "react";
 
 const nav = css`

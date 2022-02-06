@@ -1,5 +1,5 @@
 import { css, Theme } from "@emotion/react";
-import { IconButton } from "src/shared/styled-components";
+import { IconButton } from "src/components/shared/styled-components";
 
 const hero__featuredCard = css`
   position: relative;

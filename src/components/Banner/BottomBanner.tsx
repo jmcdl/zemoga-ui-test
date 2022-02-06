@@ -1,4 +1,4 @@
-import { Banner } from "src/shared/styled-components";
+import { Banner } from "src/components/shared/styled-components";
 import { css, Theme } from "@emotion/react";
 
 const bannerBottom = css`
