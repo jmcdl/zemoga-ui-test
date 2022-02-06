@@ -1,10 +1,10 @@
 import Head from "next/head";
 import Navbar from "src/components/Navbar";
 import Header from "src/components/Header";
+import Footer from "src/components/Footer";
+import VotingCards from "src/components/VotingCards";
 import { MaxContentContainer } from "src/components/shared/styled-components";
-import { BottomBanner } from "src/components/Banner";
-import { TopBanner } from "src/components/Banner";
-import { Footer } from "src/components/Footer";
+import { BottomBanner, TopBanner } from "src/components/Banner";
 
 function HomePage() {
   return (
@@ -18,6 +18,7 @@ function HomePage() {
       <Header />
       <MaxContentContainer>
         <TopBanner />
+        <VotingCards />
         <BottomBanner />
         <Footer />
       </MaxContentContainer>
