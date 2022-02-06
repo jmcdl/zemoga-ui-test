@@ -1,7 +1,6 @@
-// noinspection HtmlUnknownTarget
-import { css } from "@emotion/react";
-import { IconButton, MaxContentContainer } from "../../shared/styled-components";
 import { ReactNode } from "react";
+import { css } from "@emotion/react";
+import { MaxContentContainer } from "src/shared/styled-components";
 import { FeaturedCard } from "./FeatureCard";
 
 const hero = css`
@@ -63,13 +62,6 @@ export function Header({ children }: Props) {
         src="/img/pope-francis.png"
         alt="Pope Francis"
       />
-      {/*<Image*/}
-      {/*  css={hero__background}*/}
-      {/*  layout="responsive"*/}
-      {/*  src={popeFrancis}*/}
-      {/*  sizes="(min-width: 750px) 1440px, 100vw"*/}
-      {/*  alt="Pope Francis"*/}
-      {/*/>*/}
       <MaxContentContainer>
         <FeaturedCard />
       </MaxContentContainer>

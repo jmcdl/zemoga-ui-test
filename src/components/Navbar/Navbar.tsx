@@ -1,9 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { css, Theme } from "@emotion/react";
-import { IconButton, MaxContentContainer } from "../../shared/styled-components";
+import { IconButton, MaxContentContainer } from "src/shared/styled-components";
 import { MouseEvent, useState } from "react";
-import search from "/public/img/search.svg";
 
 const nav = css`
   position: fixed;
@@ -177,7 +175,7 @@ export function Navbar() {
             <form>
               <input css={nav__searchInput} aria-label="search" type="text" />
               <IconButton css={nav__search} title="Search" type="submit">
-                <Image src={search} alt="search" />
+                <img src="/img/search.svg" alt="search" />
               </IconButton>
             </form>
           </li>
