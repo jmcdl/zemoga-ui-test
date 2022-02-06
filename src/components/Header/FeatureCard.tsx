@@ -162,10 +162,10 @@ export function FeaturedCard() {
     <div css={hero__featuredCard}>
       <div css={featuredCard__glassBackground} />
       <div css={featuredCard__content}>
-        <p css={featuredCard__hairline}>What's your opinion on</p>
+        <p css={featuredCard__hairline}>What&apos;s your opinion on</p>
         <h2 css={featuredCard__title}>Pope Francis?</h2>
         <p css={featuredCard__desc}>
-          He’s talking tough on clergy sexual abuse, or is he just another
+          He&apos;s talking tough on clergy sexual abuse, or is he just another
           pervert protector? (thumbs down) or a true pedophile punishing
           pontiff? (thumbs up)
         </p>
