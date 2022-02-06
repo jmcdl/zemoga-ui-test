@@ -1,6 +1,4 @@
-import { css } from "@emotion/react";
 import Head from "next/head";
-import { ContentContainer } from "../shared/styles";
 import Navbar from "../components/Navbar";
 import Header from "../components/Header";
 
