@@ -1,29 +1,40 @@
-import { IconButton, ThumbsUpButton } from "../shared/styled-components";
+import { IconButton } from "../shared/styled-components";
 import { css } from "@emotion/react";
 import { View } from "./VotingCardsContainer";
+import { thumbsDownColor, thumbsUpColor } from "src/styles";
 
-const cardThumbButton = css`
+const thumbButton = css`
   height: 30px;
   width: 30px;
 `;
 
+const thumbButtonLarge = css`
+  @media all and (min-width: 1100px) {
+    height: 45px;
+    width: 45px;
+  }
+`;
+
 interface Props {
-  ariaLabel: string;
+  ariaLabel: "thumbs up" | "thumbs down";
   selectedView: View;
 }
-export function CardThumbButton({ ariaLabel, selectedView }: Props) {
+export function ThumbButton({ ariaLabel, selectedView }: Props) {
+  const imgSrc =
+    ariaLabel === "thumbs up" ? "/img/thumbs-up.svg" : "/img/thumbs-down.svg";
   return (
-    <ThumbsUpButton />
-    // <IconButton
-    //   aria-label={ariaLabel}
-    //   css={[featuredCard__button, thumbsUp]}
-    //   color="green"
-    // >
-    //   <img
-    //     src="/img/thumbs-up.svg"
-    //     alt="thumbs up"
-    //     css={featuredCard__buttonImg}
-    //   />
-    // </IconButton>
+    <IconButton
+      aria-label={ariaLabel}
+      css={[
+        thumbButton,
+        ariaLabel === "thumbs up" ? thumbsUpColor : thumbsDownColor,
+        selectedView === "list" && thumbButtonLarge,
+      ]}
+    >
+      <img
+        src={imgSrc}
+        alt={ariaLabel}
+      />
+    </IconButton>
   );
 }

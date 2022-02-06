@@ -5,15 +5,21 @@ import { Card } from "./Card";
 
 export type View = "grid" | "list";
 
+const MOBILE_CARD_HEIGHT = 300
+const MOBILE_CARD_WIDTH = 300
+
 const listContainer = (itemCount: number) => css`
   display: grid;
-  grid-template-rows: repeat(${itemCount}, 100px);
+  grid-template-columns: repeat(${itemCount}, ${MOBILE_CARD_WIDTH}px);
+  grid-template-rows: ${MOBILE_CARD_HEIGHT}px;
+  overflow-x: scroll;
+  margin-left: 1rem;
+  grid-gap: 1rem;
 `;
 
 const gridContainer = (itemCount: number) => css`
   display: grid;
-  grid-template-columns: repeat(${itemCount}, 100px);
-  overflow-x: scroll;
+  grid-template-rows: repeat(${itemCount}, 100px);
 `;
 
 export function VotingCardsContainer() {
@@ -24,7 +30,7 @@ export function VotingCardsContainer() {
   return (
     <main
       css={[
-        selectedView === "grid"
+        selectedView === "list"
           ? listContainer(itemCount)
           : gridContainer(itemCount),
       ]}
