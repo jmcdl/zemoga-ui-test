@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { css } from "@emotion/react";
 import { MaxContentContainer } from "src/shared/styled-components";
 import { FeaturedCard } from "./FeatureCard";
@@ -39,11 +38,7 @@ const hero__background = css`
   }
 `;
 
-interface Props {
-  children?: ReactNode;
-}
-
-export function Header({ children }: Props) {
+export function Header() {
   return (
     <header css={hero}>
       <img

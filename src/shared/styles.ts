@@ -1,5 +1,4 @@
 import { css, Theme } from "@emotion/react";
-import styled from "@emotion/styled";
 
 export const theme: Theme = {
   colors: {
