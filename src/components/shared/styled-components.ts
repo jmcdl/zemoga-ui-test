@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
+import { theme } from "../../styles";
+import { css, Theme } from "@emotion/react";
 
 export const MaxContentContainer = styled.div`
   display: contents;
@@ -10,17 +12,8 @@ export const MaxContentContainer = styled.div`
     margin-right: auto;
     margin-left: auto;
   }
-
-  //> *,
-  //> hr[role="separator"] {
-  //  margin-right: 0;
-  //  margin-left: 0;
-  //}
-  //
-  //& > main {
-  //  padding: 0;
-  //}
 `;
+
 
 export const IconButton = styled.button`
   padding: 0;
@@ -37,7 +30,7 @@ export const Banner = styled.aside`
   padding: 1rem;
   margin: 1rem;
   background-color: ${({ theme }) => theme.colors.lightGray};
-    @media all and (min-width: 1100px) {
+  @media all and (min-width: 1100px) {
     margin: 1rem 0;
   }
 `;

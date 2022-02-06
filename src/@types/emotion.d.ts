@@ -6,8 +6,10 @@ declare module "@emotion/react" {
     colors: {
       greenPositiveLight: string;
       greenPositiveDark: string;
-      yellowPositiveLight: string;
-      yellowPositiveDark: string;
+      greenPositiveOverlay: string;
+      yellowNegativeLight: string;
+      yellowNegativeDark: string;
+      yellowNegativeOverlay: string;
       darkBackground: string;
       darkerBackground: string;
       darkerGray: string;

@@ -1,5 +1,6 @@
 import { css, Theme } from "@emotion/react";
 import { IconButton } from "src/components/shared/styled-components";
+import { thumbsDownColor, thumbsUpColor } from "src/styles";
 
 const hero__featuredCard = css`
   position: relative;
@@ -132,20 +133,6 @@ const featuredCard__button = css`
   }
 `;
 
-const thumbsUp = (theme: Theme) => css`
-  background-color: ${theme.colors.greenPositiveDark};
-  &:hover {
-    background-color: ${theme.colors.greenPositiveLight};
-  }
-`;
-
-const thumbsDown = (theme: Theme) => css`
-  background-color: ${theme.colors.yellowPositiveDark};
-  &:hover {
-    background-color: ${theme.colors.yellowPositiveLight};
-  }
-`;
-
 const featuredCard__buttonImg = css`
   max-width: 1.25rem;
   height: 100%;
@@ -188,8 +175,7 @@ export function FeaturedCard() {
         <div css={featuredCard__buttons}>
           <IconButton
             aria-label="thumbs up"
-            css={[featuredCard__button, thumbsUp]}
-            color="green"
+            css={[featuredCard__button, thumbsUpColor]}
           >
             <img
               src="/img/thumbs-up.svg"
@@ -199,7 +185,7 @@ export function FeaturedCard() {
           </IconButton>
           <IconButton
             aria-label="thumbs down"
-            css={[featuredCard__button, thumbsDown]}
+            css={[featuredCard__button, thumbsDownColor]}
           >
             <img
               src="/img/thumbs-down.svg"

@@ -4,8 +4,10 @@ export const theme: Theme = {
   colors: {
     greenPositiveDark: `rgba(60, 187, 180, .8)`,
     greenPositiveLight: `rgba(60, 187, 180, 1)`,
-    yellowPositiveDark: `rgba(249, 173, 29, .8)`,
-    yellowPositiveLight: `rgba(249, 173, 29, 1)`,
+    greenPositiveOverlay: `rgba(60, 187, 180, .6)`,
+    yellowNegativeDark: `rgba(249, 173, 29, .8)`,
+    yellowNegativeLight: `rgba(249, 173, 29, 1)`,
+    yellowNegativeOverlay: `rgba(249, 173, 29, .6)`,
     darkBackground: `rgba(0, 0, 0, .4)`,
     darkerBackground: `rgba(0, 0, 0, .6)`,
     darkerGray: `rgba(51, 51, 51, 1)`,
@@ -68,5 +70,20 @@ export const globalStyles = (theme: Theme) => css`
     body {
       font-size: 18px;
     }
+  }
+`;
+
+
+export const thumbsUpColor = (theme: Theme) => css`
+  background-color: ${theme.colors.greenPositiveDark};
+  &:hover {
+    background-color: ${theme.colors.greenPositiveLight};
+  }
+`;
+
+export const thumbsDownColor = (theme: Theme) => css`
+  background-color: ${theme.colors.yellowNegativeDark};
+  &:hover {
+    background-color: ${theme.colors.yellowNegativeLight};
   }
 `;
