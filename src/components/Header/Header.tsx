@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { css } from "@emotion/react";
 import { MaxContentContainer } from "src/shared/styled-components";
 import { FeaturedCard } from "./FeatureCard";
-import { ClosingGauge } from "../ClosingGauge";
+import { ClosingGauge } from "./ClosingGauge";
 
 const hero = css`
   position: relative;
