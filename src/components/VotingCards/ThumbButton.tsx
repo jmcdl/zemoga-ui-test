@@ -5,13 +5,13 @@ import { thumbsDownColor, thumbsUpColor } from "src/styles";
 
 const thumbButton = css`
   height: 30px;
-  width: 30px;
+  min-width: 30px;
 `;
 
 const thumbButtonLarge = css`
   @media all and (min-width: 1100px) {
     height: 45px;
-    width: 45px;
+    min-width: 45px;
   }
 `;
 

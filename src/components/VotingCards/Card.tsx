@@ -1,5 +1,7 @@
 import { css, Theme } from "@emotion/react";
+import { formatDistanceToNow } from "date-fns";
 import { ThumbButton } from "./ThumbButton";
+import { VoteButton } from "./VoteButton";
 
 const card = css`
   position: relative;
@@ -12,11 +14,57 @@ const card = css`
   }
 `;
 
-const card__overlay = css`
+const cardOverlay = css`
   position: relative;
   width: 100%;
-  height: 70%;
-  top: 30%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.0001) 0%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+`;
+
+const card__title = (theme: Theme) => css`
+  display: flex;
+  color: ${theme.colors.white};
+  height: 40%;
+  font-size: 30px;
+  line-height: 36px;
+  align-items: flex-end;
+`;
+
+const card__description = (theme: Theme) => css`
+  display: flex;
+  color: ${theme.colors.white};
+  font-size: 15px;
+  line-height: 18px;
+  padding: 8px 40px;
+  overflow: hidden;
+`;
+
+const card__lastUpdated = (theme: Theme) => css`
+  display: flex;
+  justify-content: flex-end;
+  color: ${theme.colors.white};
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 14px;
+  padding: 8px 40px;
+  text-transform: capitalize;
+`;
+const card__actions = (theme: Theme) => css`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  color: ${theme.colors.white};
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 14px;
+  padding: 8px 16px;
+  margin-left: 50px;
+  margin-right: 10px;
+  text-transform: capitalize;
 `;
 
 const votesGauge = css`
@@ -29,7 +77,7 @@ const votesGauge = css`
 
 const votesGauge__left = (
   theme: Theme,
-  { percentPositive }: { percentPositive: string }
+  { percentPositive }: { percentPositive: number }
 ) => css`
   position: relative;
   display: flex;
@@ -44,7 +92,7 @@ const votesGauge__left = (
 
 const votesGauge__right = (
   theme: Theme,
-  { percentNegative }: { percentNegative: string }
+  { percentNegative }: { percentNegative: number }
 ) =>
   css`
     display: flex;
@@ -81,15 +129,34 @@ export function Card({
 }: CardProps) {
   const { positive, negative } = votes;
   const totalVotes = positive + negative;
-  const percentPositive = ((positive / totalVotes) * 100).toFixed(1);
-  const percentNegative = ((negative / totalVotes) * 100).toFixed(1);
+  // use Math.round to get a number with a single decimal place, but only if it's not zero
+  const percentPositive = Math.round((positive / totalVotes) * 1000) / 10;
+  const percentNegative = Math.round((100 - percentPositive) * 10) / 10;
+  const winningCard =
+    percentPositive > percentNegative ? "thumbs up" : "thumbs down";
+
+  const timeSinceLastVote = formatDistanceToNow(new Date(lastUpdated));
+
+  const truncatedDescription =
+    description.length > 60 ? `${description.slice(0, 60)}...` : description;
 
   return (
     <div css={card}>
       <img src={picture} alt={name} />
-      <div css={card__overlay}>
-        <ThumbButton ariaLabel="thumbs up" selectedView="list" />
-        <ThumbButton ariaLabel="thumbs down" selectedView="list" />
+      <div css={cardOverlay}>
+        <div css={card__title}>
+          <ThumbButton ariaLabel={winningCard} selectedView="list" />
+          {name}
+        </div>
+        <div css={card__description}>{truncatedDescription}</div>
+        <div css={card__lastUpdated}>
+          {timeSinceLastVote} in {category}
+        </div>
+        <div css={card__actions}>
+          <ThumbButton ariaLabel="thumbs up" selectedView="list" />
+          <ThumbButton ariaLabel="thumbs down" selectedView="list" />
+          <VoteButton />
+        </div>
         <div css={votesGauge}>
           <span css={(theme) => votesGauge__left(theme, { percentPositive })}>
             <img
