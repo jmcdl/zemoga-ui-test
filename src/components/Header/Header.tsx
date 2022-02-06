@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { css } from "@emotion/react";
 import { MaxContentContainer } from "src/shared/styled-components";
 import { FeaturedCard } from "./FeatureCard";
+import { ClosingGauge } from "../ClosingGauge";
 
 const hero = css`
   position: relative;
@@ -38,16 +39,6 @@ const hero__background = css`
   }
 `;
 
-
-const hero__closingGauge = css`
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  width: 100%;
-  height: 3rem;
-  background-color: var(--color-light-background);
-`;
-
 interface Props {
   children?: ReactNode;
 }
@@ -65,15 +56,7 @@ export function Header({ children }: Props) {
       <MaxContentContainer>
         <FeaturedCard />
       </MaxContentContainer>
-      {/*<div className="hero__closing-gauge">*/}
-      {/*  <div className="closing-gauge__left">*/}
-      {/*    <span className="closing-gauge__title">closing in</span>*/}
-      {/*  </div>*/}
-      {/*  <div className="closing-gauge__right">*/}
-      {/*    <span className="closing-gauge__number">22</span>*/}
-      {/*    <span className="closing-gauge__desc">days</span>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
+      <ClosingGauge />
     </header>
   );
 }
