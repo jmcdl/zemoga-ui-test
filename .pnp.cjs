@@ -43,6 +43,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-dom", "npm:17.0.11"],
             ["@typescript-eslint/eslint-plugin", "virtual:6988da4ab1f6d870e7267e0ed0b36e947bd23ce4f158fbc4c9c6bcb72b2a286b451bb036977a3d974c0f57011667db3a8403fcb2eda2a1d868004f386ee75182#npm:5.10.2"],
             ["@typescript-eslint/parser", "virtual:6988da4ab1f6d870e7267e0ed0b36e947bd23ce4f158fbc4c9c6bcb72b2a286b451bb036977a3d974c0f57011667db3a8403fcb2eda2a1d868004f386ee75182#npm:5.10.2"],
+            ["date-fns", "npm:2.28.0"],
             ["eslint", "npm:8.8.0"],
             ["eslint-config-next", "virtual:6988da4ab1f6d870e7267e0ed0b36e947bd23ce4f158fbc4c9c6bcb72b2a286b451bb036977a3d974c0f57011667db3a8403fcb2eda2a1d868004f386ee75182#npm:12.0.10"],
             ["eslint-config-prettier", "virtual:6988da4ab1f6d870e7267e0ed0b36e947bd23ce4f158fbc4c9c6bcb72b2a286b451bb036977a3d974c0f57011667db3a8403fcb2eda2a1d868004f386ee75182#npm:8.3.0"],
@@ -1192,6 +1193,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/damerau-levenshtein-npm-1.0.8-bda7311c69-d240b77575.zip/node_modules/damerau-levenshtein/",
           "packageDependencies": [
             ["damerau-levenshtein", "npm:1.0.8"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["date-fns", [
+        ["npm:2.28.0", {
+          "packageLocation": "./.yarn/cache/date-fns-npm-2.28.0-c19c5add1b-a0516b2e4f.zip/node_modules/date-fns/",
+          "packageDependencies": [
+            ["date-fns", "npm:2.28.0"]
           ],
           "linkType": "HARD",
         }]
@@ -3484,6 +3494,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-dom", "npm:17.0.11"],
             ["@typescript-eslint/eslint-plugin", "virtual:6988da4ab1f6d870e7267e0ed0b36e947bd23ce4f158fbc4c9c6bcb72b2a286b451bb036977a3d974c0f57011667db3a8403fcb2eda2a1d868004f386ee75182#npm:5.10.2"],
             ["@typescript-eslint/parser", "virtual:6988da4ab1f6d870e7267e0ed0b36e947bd23ce4f158fbc4c9c6bcb72b2a286b451bb036977a3d974c0f57011667db3a8403fcb2eda2a1d868004f386ee75182#npm:5.10.2"],
+            ["date-fns", "npm:2.28.0"],
             ["eslint", "npm:8.8.0"],
             ["eslint-config-next", "virtual:6988da4ab1f6d870e7267e0ed0b36e947bd23ce4f158fbc4c9c6bcb72b2a286b451bb036977a3d974c0f57011667db3a8403fcb2eda2a1d868004f386ee75182#npm:12.0.10"],
             ["eslint-config-prettier", "virtual:6988da4ab1f6d870e7267e0ed0b36e947bd23ce4f158fbc4c9c6bcb72b2a286b451bb036977a3d974c0f57011667db3a8403fcb2eda2a1d868004f386ee75182#npm:8.3.0"],
