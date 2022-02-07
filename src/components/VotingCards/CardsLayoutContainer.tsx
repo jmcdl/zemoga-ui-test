@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { css, Theme } from "@emotion/react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection } from "firebase/firestore";
@@ -54,12 +54,21 @@ const containerHeader = (theme: Theme) => css`
     text-align: center;
     background-color: ${theme.colors.white};
   }
+  @media all and (min-width: 1100px) {
+    > select {
+      height: 36px;
+      width: 173px;
+    }
+  }
 `;
 
 const containerTitle = css`
   margin-left: 1rem;
   font-size: 24px;
   font-weight: 300;
+  @media all and (min-width: 1100px) {
+    font-size: 45px;
+  }
 `;
 
 const loadingStyle = css`
@@ -73,7 +82,13 @@ export function CardsLayoutContainer() {
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const [value, loading, error] = useCollection(collection(db, "celebrities"));
 
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
+  useEffect(() => {
+    if (isMobile) {
+      setSelectedView("grid");
+    }
+  }, [isMobile]);
+
+  const handleSelectView = (event: ChangeEvent<HTMLSelectElement>) => {
     if (isSelectedViewValue(event.target.value)) {
       setSelectedView(event.target.value);
     }
@@ -98,12 +113,13 @@ export function CardsLayoutContainer() {
     <main>
       <div css={containerHeader}>
         <h2 css={containerTitle}>Previous Rulings</h2>
-        <select name="view" value={selectedView} onChange={handleChange}>
-          <option value="grid">Grid</option>
-          <option value="list">List</option>
-        </select>
+        {!isMobile && (
+          <select name="view" value={selectedView} onChange={handleSelectView}>
+            <option value="grid">Grid</option>
+            <option value="list">List</option>
+          </select>
+        )}
       </div>
-
       <div
         css={[
           isMobile || selectedView === "grid"
@@ -113,7 +129,13 @@ export function CardsLayoutContainer() {
       >
         {loading && <LoadingSpinner />}
         {value &&
-          value.docs.map((doc) => <CardContainer key={doc.id} firebaseDoc={doc} selectedView={selectedView}/>)}
+          value.docs.map((doc) => (
+            <CardContainer
+              key={doc.id}
+              firebaseDoc={doc}
+              selectedView={selectedView}
+            />
+          ))}
       </div>
     </main>
   );
