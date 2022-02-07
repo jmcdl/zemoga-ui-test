@@ -9,6 +9,7 @@ import { isSelectedViewValue } from "../../utils/type-guards";
 import { LARGE_CARD, SMALL_CARD } from "src/styles";
 import { SelectedView } from "src/shared/interfaces";
 import { CardContainer } from "./CardContainer";
+import { ViewSelect } from "./ViewSelect";
 
 const gridContainer = (itemCount: number) => css`
   display: grid;
@@ -88,11 +89,11 @@ export function CardsLayoutContainer() {
     }
   }, [isMobile]);
 
-  const handleSelectView = (event: ChangeEvent<HTMLSelectElement>) => {
-    if (isSelectedViewValue(event.target.value)) {
-      setSelectedView(event.target.value);
-    }
-  };
+  // const handleSelectView = (event: ChangeEvent<HTMLSelectElement>) => {
+  //   if (isSelectedViewValue(event.target.value)) {
+  //     setSelectedView(event.target.value);
+  //   }
+  // };
 
   if (error) {
     return <main>something went wrong</main>;
@@ -114,10 +115,11 @@ export function CardsLayoutContainer() {
       <div css={containerHeader}>
         <h2 css={containerTitle}>Previous Rulings</h2>
         {!isMobile && (
-          <select name="view" value={selectedView} onChange={handleSelectView}>
-            <option value="grid">Grid</option>
-            <option value="list">List</option>
-          </select>
+          <ViewSelect selectedView={selectedView} setSelectedView={setSelectedView}/>
+          // <select name="view" value={selectedView} onChange={handleSelectView}>
+          //   <option value="grid">Grid</option>
+          //   <option value="list">List</option>
+          // </select>
         )}
       </div>
       <div

@@ -20,3 +20,4 @@ export interface CelebrityDocument {
 export type SelectedVote = "thumbs up" | "thumbs down" | null;
 
 export type SelectedView = "grid" | "list";
+export const ALL_VIEWS: SelectedView[] = ["grid", "list"];
