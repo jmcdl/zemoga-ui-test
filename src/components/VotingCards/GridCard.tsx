@@ -44,7 +44,7 @@ const card__title = (theme: Theme) => css`
   font-size: 30px;
   align-items: flex-end;
   @media all and (min-width: 768px) {
-    height: 48%;
+    height: 42%;
   }
   @media all and (min-width: 1100px) {
     font-size: 36px;
@@ -171,7 +171,12 @@ export function GridCard({
 }: CardProps) {
   return (
     <div css={card}>
-      <img src={imgUrls.small} alt={name} />
+      <img
+        srcSet={`${imgUrls.small} 750w, ${imgUrls.big} 1440w`}
+        sizes="(min-width: 750px) 1440px, 100vw"
+        src={imgUrls.small}
+        alt={name}
+      />
       <div css={cardOverlay}>
         <div css={card__title}>
           <ThumbButton ariaLabel={winningCard} selectedView="list" />
@@ -189,7 +194,9 @@ export function GridCard({
                 selectedView={selectedView}
                 isSelected={selectedVote === "thumbs up"}
                 handleClick={() =>
-                  setSelectedVote((prev) => (prev === "thumbs up" ? null : "thumbs up"))
+                  setSelectedVote((prev) =>
+                    prev === "thumbs up" ? null : "thumbs up"
+                  )
                 }
               />
               <ThumbButton
@@ -197,7 +204,9 @@ export function GridCard({
                 selectedView={selectedView}
                 isSelected={selectedVote === "thumbs down"}
                 handleClick={() =>
-                  setSelectedVote((prev) => (prev === "thumbs down" ? null : "thumbs down"))
+                  setSelectedVote((prev) =>
+                    prev === "thumbs down" ? null : "thumbs down"
+                  )
                 }
               />
             </>
