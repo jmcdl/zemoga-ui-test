@@ -91,10 +91,7 @@ const card__lastUpdated = (theme: Theme) => css`
   }
 `;
 
-const card__actions = (
-  theme: Theme,
-  { hasVoted }: { hasVoted: boolean }
-) => css`
+const card__actions = (theme: Theme) => css`
   display: flex;
   flex: 1;
   justify-content: flex-end;
@@ -211,7 +208,7 @@ export function ListCard({
             <div css={card__lastUpdated}>
               {!hasVoted ? lastUpdateMsg : "Thank you for voting!"}
             </div>
-            <div css={(theme) => card__actions(theme, { hasVoted })}>
+            <div css={card__actions}>
               {!hasVoted && (
                 <>
                   <ThumbButton

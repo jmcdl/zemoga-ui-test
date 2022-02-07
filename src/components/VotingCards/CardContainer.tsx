@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  ScreenSize,
   SelectedView,
   SelectedVote,
 } from "../../shared/interfaces";

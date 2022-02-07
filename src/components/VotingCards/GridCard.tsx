@@ -212,6 +212,7 @@ export function GridCard({
             </>
           )}
           <VoteButton
+            selectedView={selectedView}
             selectedVote={selectedVote}
             setVoteSelection={setSelectedVote}
             hasVoted={hasVoted}
