@@ -124,6 +124,9 @@ interface CardProps {
 }
 
 export function Card({ firebaseDoc }: CardProps) {
+  const [voteSelection, setVoteSelection] = useState<VoteSelection>(null);
+  const [hasVoted, setHasVoted] = useState(false);
+
   const data = firebaseDoc.data();
   if (!isCelebrityDocument(data)) {
     return null;
@@ -150,9 +153,6 @@ export function Card({ firebaseDoc }: CardProps) {
 
   const truncatedDescription =
     description.length > 60 ? `${description.slice(0, 60)}...` : description;
-
-  const [voteSelection, setVoteSelection] = useState<VoteSelection>(null);
-  const [hasVoted, setHasVoted] = useState(false);
 
   const submitVote = async (voteSelection: VoteSelection) => {
     const todayAsISOString = new Date().toISOString();
