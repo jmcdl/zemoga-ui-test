@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
 import { css, Theme } from "@emotion/react";
 import { ThumbButton } from "./ThumbButton";
-import { VoteButton } from "./VoteButton";
 import { ImageUrls, SelectedView, SelectedVote } from "src/shared/interfaces";
 import { LARGE_CARD, SMALL_CARD } from "src/styles";
 import { VotesGauge } from "./VotesGauge";
+import { CardActions } from "./CardActions";
 
 const card = css`
   position: relative;
@@ -72,27 +72,6 @@ const card__lastUpdated = (theme: Theme) => css`
   padding: 8px 40px;
 `;
 
-const card__actions = (
-  theme: Theme,
-  { hasVoted }: { hasVoted: boolean }
-) => css`
-  display: flex;
-  ${hasVoted ? `justify-content: flex-end` : `justify-content: space-between`};
-  align-items: center;
-  color: ${theme.colors.white};
-  font-size: 12px;
-  font-weight: 700;
-  padding: 8px 16px;
-  margin-left: 70px;
-  margin-right: 10px;
-  text-transform: capitalize;
-  @media all and (min-width: 768px) {
-    padding: 8px 32px;
-    margin-left: 90px;
-    height: 46px;
-  }
-`;
-
 interface CardProps {
   imgUrls: ImageUrls;
   winningCard: SelectedVote;
@@ -143,40 +122,14 @@ export function GridCard({
         <div css={card__lastUpdated}>
           {!hasVoted ? lastUpdateMsg : "Thank you for voting!"}
         </div>
-        <div css={(theme) => card__actions(theme, { hasVoted })}>
-          {!hasVoted && (
-            <>
-              <ThumbButton
-                ariaLabel="thumbs up"
-                selectedView={selectedView}
-                isSelected={selectedVote === "thumbs up"}
-                handleClick={() =>
-                  setSelectedVote((prev) =>
-                    prev === "thumbs up" ? null : "thumbs up"
-                  )
-                }
-              />
-              <ThumbButton
-                ariaLabel="thumbs down"
-                selectedView={selectedView}
-                isSelected={selectedVote === "thumbs down"}
-                handleClick={() =>
-                  setSelectedVote((prev) =>
-                    prev === "thumbs down" ? null : "thumbs down"
-                  )
-                }
-              />
-            </>
-          )}
-          <VoteButton
-            selectedView={selectedView}
-            selectedVote={selectedVote}
-            setVoteSelection={setSelectedVote}
-            hasVoted={hasVoted}
-            setHasVoted={setHasVoted}
-            submitVote={submitVote}
-          />
-        </div>
+        <CardActions
+          selectedView={selectedView}
+          selectedVote={selectedVote}
+          setSelectedVote={setSelectedVote}
+          setHasVoted={setHasVoted}
+          submitVote={submitVote}
+          hasVoted={hasVoted}
+        />
         {totalVotes && (
           <VotesGauge
             percentNegative={percentNegative}
