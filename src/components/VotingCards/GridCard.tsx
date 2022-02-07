@@ -1,12 +1,8 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { css, Theme } from "@emotion/react";
-import { formatDistanceToNow } from "date-fns";
 import { ThumbButton } from "./ThumbButton";
 import { VoteButton } from "./VoteButton";
-import { SelectedView, SelectedVote } from "src/shared/interfaces";
-import { QueryDocumentSnapshot, setDoc } from "firebase/firestore";
-import { getCelebrityDocRef } from "../../utils/firebase";
-import { isCelebrityDocument } from "src/utils/type-guards";
+import { ImageUrls, SelectedView, SelectedVote } from "src/shared/interfaces";
 import { LARGE_CARD, SMALL_CARD } from "src/styles";
 
 const card = css`
@@ -141,58 +137,38 @@ const votesGauge__icon = css`
 `;
 
 interface CardProps {
-  firebaseDoc: QueryDocumentSnapshot;
+  imgUrls: ImageUrls;
+  winningCard: SelectedVote;
+  truncatedDescription: string;
+  hasVoted: boolean;
+  lastUpdateMsg: string;
   selectedView: SelectedView;
+  selectedVote: SelectedVote;
+  setSelectedVote: Dispatch<SetStateAction<SelectedVote>>;
+  setHasVoted: Dispatch<SetStateAction<boolean>>;
+  submitVote: (selectedVote: SelectedVote) => Promise<void>;
+  totalVotes: number;
+  percentPositive: number;
+  percentNegative: number;
+  name: string;
 }
 
-export function Card({ firebaseDoc, selectedView }: CardProps) {
-  const [selectedVote, setSelectedVote] = useState<SelectedVote>(null);
-  const [hasVoted, setHasVoted] = useState(false);
-
-  const data = firebaseDoc.data();
-  if (!isCelebrityDocument(data)) {
-    return null;
-  }
-  const { name, description, category, imgUrls, lastUpdated, votes } = data;
-
-  const { positive, negative } = votes;
-  const totalVotes = positive + negative;
-
-  // use Math.round to get a number with a single decimal place, but only if
-  // it's not zero
-  const percentPositive =
-    totalVotes > 0 ? Math.round((positive / totalVotes) * 1000) / 10 : 0;
-  const percentNegative = Math.round((100 - percentPositive) * 10) / 10;
-  const winningCard =
-    percentPositive > percentNegative ? "thumbs up" : "thumbs down";
-
-  const timeSinceLastVote = lastUpdated
-    ? formatDistanceToNow(new Date(lastUpdated))
-    : null;
-
-  const lastUpdateMsg = timeSinceLastVote
-    ? `${timeSinceLastVote} in ${category}`
-    : "Be the first to vote!";
-
-  const truncatedDescription =
-    description.length > 60 ? `${description.slice(0, 60)}...` : description;
-
-  const submitVote = async (voteSelection: SelectedVote) => {
-    const todayAsISOString = new Date().toISOString();
-    const newDoc = { ...data, lastUpdated: todayAsISOString };
-    if (voteSelection === "up") {
-      newDoc.votes.positive = newDoc.votes.positive + 1;
-    }
-    if (voteSelection === "down") {
-      newDoc.votes.negative += 1;
-    }
-    try {
-      await setDoc(getCelebrityDocRef(firebaseDoc.id), newDoc);
-    } catch (error) {
-      console.error("error submitting vote", error);
-    }
-  };
-
+export function GridCard({
+  imgUrls,
+  winningCard,
+  truncatedDescription,
+  hasVoted,
+  lastUpdateMsg,
+  selectedView,
+  selectedVote,
+  setSelectedVote,
+  setHasVoted,
+  submitVote,
+  totalVotes,
+  percentPositive,
+  percentNegative,
+  name,
+}: CardProps) {
   return (
     <div css={card}>
       <img src={imgUrls.small} alt={name} />
@@ -211,17 +187,17 @@ export function Card({ firebaseDoc, selectedView }: CardProps) {
               <ThumbButton
                 ariaLabel="thumbs up"
                 selectedView={selectedView}
-                isSelected={selectedVote === "up"}
+                isSelected={selectedVote === "thumbs up"}
                 handleClick={() =>
-                  setSelectedVote((prev) => (prev === "up" ? null : "up"))
+                  setSelectedVote((prev) => (prev === "thumbs up" ? null : "thumbs up"))
                 }
               />
               <ThumbButton
                 ariaLabel="thumbs down"
                 selectedView={selectedView}
-                isSelected={selectedVote === "down"}
+                isSelected={selectedVote === "thumbs down"}
                 handleClick={() =>
-                  setSelectedVote((prev) => (prev === "down" ? null : "down"))
+                  setSelectedVote((prev) => (prev === "thumbs down" ? null : "thumbs down"))
                 }
               />
             </>

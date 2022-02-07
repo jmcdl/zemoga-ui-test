@@ -1,3 +1,3 @@
-import { VotingCardsContainer } from "./VotingCardsContainer";
+import { CardsLayoutContainer } from "./CardsLayoutContainer";
 
-export default VotingCardsContainer;
+export default CardsLayoutContainer;

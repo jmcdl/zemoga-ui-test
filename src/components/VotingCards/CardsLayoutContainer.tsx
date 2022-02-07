@@ -2,13 +2,13 @@ import { ChangeEvent, useState } from "react";
 import { css } from "@emotion/react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection } from "firebase/firestore";
-import { Card } from "./Card";
 import { db } from "src/utils/firebase";
 import { LoadingSpinner } from "../shared/loading-spinner";
 import { useMediaQuery } from "react-responsive";
 import { isSelectedViewValue } from "../../utils/type-guards";
 import { LARGE_CARD, SMALL_CARD } from "src/styles";
 import { SelectedView } from "src/shared/interfaces";
+import { CardContainer } from "./CardContainer";
 
 const gridContainer = (itemCount: number) => css`
   display: grid;
@@ -62,11 +62,9 @@ const loadingStyle = css`
   height: ${SMALL_CARD}px;
 `;
 
-export function VotingCardsContainer() {
+export function CardsLayoutContainer() {
   const [selectedView, setSelectedView] = useState<SelectedView>("grid");
-  console.log("selectedView", selectedView);
   const isMobile = useMediaQuery({ maxWidth: 768 });
-  console.log("isMobile", isMobile);
   const [value, loading, error] = useCollection(collection(db, "celebrities"));
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -109,7 +107,7 @@ export function VotingCardsContainer() {
       >
         {loading && <LoadingSpinner />}
         {value &&
-          value.docs.map((doc) => <Card key={doc.id} firebaseDoc={doc} selectedView={selectedView}/>)}
+          value.docs.map((doc) => <CardContainer key={doc.id} firebaseDoc={doc} selectedView={selectedView}/>)}
       </div>
     </main>
   );
