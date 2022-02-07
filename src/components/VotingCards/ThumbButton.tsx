@@ -33,7 +33,6 @@ export function ThumbButton({
 }: Props) {
   const imgSrc =
     ariaLabel === "thumbs up" ? "/img/thumbs-up.svg" : "/img/thumbs-down.svg";
-  console.log("selectedView", selectedView);
   return (
     <IconButton
       aria-label={ariaLabel ?? ""}
