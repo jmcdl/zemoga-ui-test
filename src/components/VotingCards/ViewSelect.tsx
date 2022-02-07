@@ -2,16 +2,22 @@ import { css, Theme } from "@emotion/react";
 import { ALL_VIEWS, SelectedView } from "../../shared/interfaces";
 import { Dispatch, SetStateAction, useState } from "react";
 
-const select__container = css`
+const select__container = (
+  theme: Theme,
+  { selectedView }: { selectedView: SelectedView }
+) => css`
   display: flex;
   flex-direction: column;
-  //position: absolute;
-  //top: 680px;
-  //right: 16px;
-  //@media all and (min-width: 1100px) {
-  //  top: 165px;
-  //  right: 20px;
-  //}
+  position: absolute;
+  top: 680px;
+  right: 16px;
+  @media all and (min-width: 768px) {
+    ${selectedView === "grid" && `right: 70px`}
+  }
+  @media all and (min-width: 1100px) {
+    top: 165px;
+    right: 20px;
+  }
 `;
 
 const select = (theme: Theme) => css`
@@ -79,7 +85,7 @@ export function ViewSelect({ selectedView, setSelectedView }: Props) {
   };
 
   return (
-    <div css={select__container}>
+    <div css={(theme) => select__container(theme, { selectedView })}>
       <div css={select} onClick={() => setShowingList((prev) => !prev)}>
         {selectedView}
         {showingList ? <span css={triangleUp} /> : <span css={triangleDown} />}

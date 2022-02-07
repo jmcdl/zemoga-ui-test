@@ -9,6 +9,7 @@ import { isSelectedViewValue } from "../../utils/type-guards";
 import { LARGE_CARD, SMALL_CARD } from "src/styles";
 import { SelectedView } from "src/shared/interfaces";
 import { CardContainer } from "./CardContainer";
+import { ViewSelect } from "./ViewSelect";
 
 const gridContainer = (itemCount: number) => css`
   display: grid;
@@ -41,30 +42,13 @@ const listContainer = (itemCount: number) => css`
   }
 `;
 
-const containerHeader = (
-  theme: Theme,
-  { selectedView }: { selectedView: SelectedView }
-) => css`
+const containerHeader = css`
   display: flex;
   margin: 0 1rem;
   justify-content: space-between;
   align-items: center;
-  > select {
-    height: 28px;
-    width: 131px;
-    border-radius: 0;
-    border: 2px solid #333333;
-    text-align: center;
-    background-color: ${theme.colors.white};
-  }
-  @media all and (min-width: 768px) {
-  ${selectedView === "grid" && `margin: 0 4rem`};
   @media all and (min-width: 1100px) {
-  margin: 0 1rem;
-    > select {
-      height: 36px;
-      width: 173px;
-    }
+    margin: 0 1rem;
   }
 `;
 
@@ -94,12 +78,6 @@ export function CardsLayoutContainer() {
     }
   }, [isMobile]);
 
-  const handleSelectView = (event: ChangeEvent<HTMLSelectElement>) => {
-    if (isSelectedViewValue(event.target.value)) {
-      setSelectedView(event.target.value);
-    }
-  };
-
   if (error) {
     return <main>something went wrong</main>;
   }
@@ -117,14 +95,13 @@ export function CardsLayoutContainer() {
 
   return (
     <main>
-      <div css={(theme) => containerHeader(theme, { selectedView })}>
+      <div css={containerHeader}>
         <h2 css={containerTitle}>Previous Rulings</h2>
         {!isMobile && (
-          // <ViewSelect selectedView={selectedView} setSelectedView={setSelectedView}/>
-          <select name="view" value={selectedView} onChange={handleSelectView}>
-            <option value="grid">Grid</option>
-            <option value="list">List</option>
-          </select>
+          <ViewSelect
+            selectedView={selectedView}
+            setSelectedView={setSelectedView}
+          />
         )}
       </div>
       <div
