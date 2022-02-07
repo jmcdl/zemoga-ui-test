@@ -2,6 +2,7 @@ import { css, Theme } from "@emotion/react";
 import { formatDistanceToNow } from "date-fns";
 import { ThumbButton } from "./ThumbButton";
 import { VoteButton } from "./VoteButton";
+import { useState } from "react";
 
 const card = css`
   position: relative;
@@ -53,16 +54,19 @@ const card__lastUpdated = (theme: Theme) => css`
   padding: 8px 40px;
   text-transform: capitalize;
 `;
-const card__actions = (theme: Theme) => css`
+const card__actions = (
+  theme: Theme,
+  { hasVoted }: { hasVoted: boolean }
+) => css`
   display: flex;
-  justify-content: space-evenly;
+  ${hasVoted ? `justify-content: flex-end` : `justify-content: space-between`};
   align-items: center;
   color: ${theme.colors.white};
   font-size: 12px;
   font-weight: 700;
   line-height: 14px;
   padding: 8px 16px;
-  margin-left: 50px;
+  margin-left: 70px;
   margin-right: 10px;
   text-transform: capitalize;
 `;
@@ -111,6 +115,8 @@ const votesGauge__icon = css`
   padding: 6px;
 `;
 
+export type Vote = "up" | "down" | null;
+
 interface CardProps {
   name: string;
   description: string;
@@ -140,6 +146,12 @@ export function Card({
   const truncatedDescription =
     description.length > 60 ? `${description.slice(0, 60)}...` : description;
 
+  const [vote, setVote] = useState<Vote>(null);
+  const [hasVoted, setHasVoted] = useState(false);
+
+  console.log("vote", vote);
+  console.log("hasVoted", hasVoted);
+
   return (
     <div css={card}>
       <img src={picture} alt={name} />
@@ -152,10 +164,28 @@ export function Card({
         <div css={card__lastUpdated}>
           {timeSinceLastVote} in {category}
         </div>
-        <div css={card__actions}>
-          <ThumbButton ariaLabel="thumbs up" selectedView="list" />
-          <ThumbButton ariaLabel="thumbs down" selectedView="list" />
-          <VoteButton />
+        <div css={(theme) => card__actions(theme, { hasVoted })}>
+          {!hasVoted && (
+            <>
+              <ThumbButton
+                ariaLabel="thumbs up"
+                selectedView="list"
+                handleBlur={() => setVote(null)}
+                handleClick={() => setVote("up")}
+              />
+              <ThumbButton
+                ariaLabel="thumbs down"
+                selectedView="list"
+                handleBlur={() => setVote(null)}
+                handleClick={() => setVote("down")}
+              />
+            </>
+          )}
+          <VoteButton
+            vote={vote}
+            hasVoted={hasVoted}
+            setHasVoted={setHasVoted}
+          />
         </div>
         <div css={votesGauge}>
           <span css={(theme) => votesGauge__left(theme, { percentPositive })}>
