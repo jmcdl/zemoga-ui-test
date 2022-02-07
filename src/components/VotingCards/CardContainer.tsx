@@ -1,10 +1,16 @@
 import { useState } from "react";
-import { SelectedView, SelectedVote } from "../../shared/interfaces";
+import {
+  ScreenSize,
+  SelectedView,
+  SelectedVote,
+} from "../../shared/interfaces";
 import { isCelebrityDocument } from "../../utils/type-guards";
 import { formatDistanceToNow } from "date-fns";
 import { QueryDocumentSnapshot, setDoc } from "firebase/firestore";
 import { getCelebrityDocRef } from "../../utils/firebase";
 import { GridCard } from "./GridCard";
+import { ListCard } from "./ListCard";
+import { useMediaQuery } from "react-responsive";
 
 interface CardProps {
   firebaseDoc: QueryDocumentSnapshot;
@@ -13,6 +19,7 @@ interface CardProps {
 export function CardContainer({ firebaseDoc, selectedView }: CardProps) {
   const [selectedVote, setSelectedVote] = useState<SelectedVote>(null);
   const [hasVoted, setHasVoted] = useState(false);
+  const isMobile = useMediaQuery({ maxWidth: 768 });
 
   const data = firebaseDoc.data();
   if (!isCelebrityDocument(data)) {
@@ -39,9 +46,16 @@ export function CardContainer({ firebaseDoc, selectedView }: CardProps) {
     ? `${timeSinceLastVote} in ${category}`
     : "Be the first to vote!";
 
-  const truncatedDescription =
-    description.length > 60 ? `${description.slice(0, 60)}...` : description;
-
+  const truncatedDescription = (isMobile: boolean) => {
+    if (isMobile) {
+      return description.length > 60
+        ? `${description.slice(0, 60)}...`
+        : description;
+    }
+    return description.length > 100
+      ? `${description.slice(0, 100)}...`
+      : description;
+  };
   const submitVote = async (selectedVote: SelectedVote) => {
     const todayAsISOString = new Date().toISOString();
     const newDoc = { ...data, lastUpdated: todayAsISOString };
@@ -62,7 +76,27 @@ export function CardContainer({ firebaseDoc, selectedView }: CardProps) {
       <GridCard
         imgUrls={imgUrls}
         winningCard={winningCard}
-        truncatedDescription={truncatedDescription}
+        truncatedDescription={truncatedDescription(isMobile)}
+        hasVoted={hasVoted}
+        lastUpdateMsg={lastUpdateMsg}
+        selectedView={selectedView}
+        selectedVote={selectedVote}
+        setSelectedVote={setSelectedVote}
+        setHasVoted={setHasVoted}
+        submitVote={submitVote}
+        totalVotes={totalVotes}
+        percentPositive={percentPositive}
+        percentNegative={percentNegative}
+        name={name}
+      />
+    );
+  }
+  if (selectedView === "list") {
+    return (
+      <ListCard
+        imgUrls={imgUrls}
+        winningCard={winningCard}
+        truncatedDescription={truncatedDescription(isMobile)}
         hasVoted={hasVoted}
         lastUpdateMsg={lastUpdateMsg}
         selectedView={selectedView}

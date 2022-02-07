@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection } from "firebase/firestore";
 import { db } from "src/utils/firebase";
@@ -33,10 +33,15 @@ const gridContainer = (itemCount: number) => css`
 
 const listContainer = (itemCount: number) => css`
   display: grid;
-  grid-template-rows: repeat(${itemCount}, 100px);
+  grid-template-rows: repeat(${itemCount}, 142px);
+  grid-gap: 1rem;
+  margin: 0 1rem;
+  @media all and (min-width: 1100px) {
+    grid-template-rows: repeat(${itemCount}, 170px);
+  }
 `;
 
-const containerHeader = css`
+const containerHeader = (theme: Theme) => css`
   display: flex;
   margin: 0 1rem;
   justify-content: space-between;
@@ -47,6 +52,7 @@ const containerHeader = css`
     border-radius: 0;
     border: 2px solid #333333;
     text-align: center;
+    background-color: ${theme.colors.white};
   }
 `;
 
@@ -63,7 +69,7 @@ const loadingStyle = css`
 `;
 
 export function CardsLayoutContainer() {
-  const [selectedView, setSelectedView] = useState<SelectedView>("grid");
+  const [selectedView, setSelectedView] = useState<SelectedView>("list");
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const [value, loading, error] = useCollection(collection(db, "celebrities"));
 
