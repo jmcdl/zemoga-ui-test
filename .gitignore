@@ -12,3 +12,4 @@
 .idea
 .next
 .DS_Store
+node_modules
