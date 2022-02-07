@@ -38,7 +38,9 @@ export function ThumbButton({
       aria-label={ariaLabel ?? ""}
       css={[
         thumbButton,
-        ariaLabel === "thumbs up" ? thumbsUpColor : thumbsDownColor,
+        ariaLabel === "thumbs up"
+          ? (theme) => thumbsUpColor(theme, Boolean(handleClick))
+          : (theme) => thumbsDownColor(theme, Boolean(handleClick)),
         selectedView === "list" && thumbButtonLarge,
         isSelected && selectedStyle,
       ]}

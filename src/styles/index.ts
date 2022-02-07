@@ -73,21 +73,19 @@ export const globalStyles = (theme: Theme) => css`
   }
 `;
 
-
-export const thumbsUpColor = (theme: Theme) => css`
+export const thumbsUpColor = (theme: Theme, clickable?: boolean) => css`
   background-color: ${theme.colors.greenPositiveDark};
   &:hover {
-    background-color: ${theme.colors.greenPositiveLight};
+    ${clickable && `background-color: ${theme.colors.greenPositiveLight}`}
   }
 `;
 
-export const thumbsDownColor = (theme: Theme) => css`
+export const thumbsDownColor = (theme: Theme, clickable?: boolean) => css`
   background-color: ${theme.colors.yellowNegativeDark};
   &:hover {
-    background-color: ${theme.colors.yellowNegativeLight};
+    ${clickable && `background-color: ${theme.colors.yellowNegativeLight}`}
   }
 `;
-
 
 export const SMALL_CARD = 300;
 export const LARGE_CARD = 350;

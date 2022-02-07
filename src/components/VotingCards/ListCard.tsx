@@ -3,7 +3,6 @@ import { css, Theme } from "@emotion/react";
 import { ThumbButton } from "./ThumbButton";
 import { VoteButton } from "./VoteButton";
 import { ImageUrls, SelectedView, SelectedVote } from "src/shared/interfaces";
-import { LARGE_CARD, SMALL_CARD } from "src/styles";
 
 const card = css`
   position: relative;
