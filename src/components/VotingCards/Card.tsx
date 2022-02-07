@@ -7,16 +7,27 @@ import { VoteSelection } from "src/shared/interfaces";
 import { QueryDocumentSnapshot, setDoc } from "firebase/firestore";
 import { getCelebrityDocRef } from "../../utils/firebase";
 import { isCelebrityDocument } from "src/utils/type-guards";
+import { LARGE_CARD, SMALL_CARD } from "src/styles";
 
 const card = css`
   position: relative;
-  height: 300px;
-  width: 300px;
+  height: ${SMALL_CARD}px;
+  width: ${SMALL_CARD}px;
   > img {
     position: absolute;
-    height: 300px;
-    width: 300px;
+    height: ${SMALL_CARD}px;
+    width: ${SMALL_CARD}px;
   }
+   @media all and (min-width: 768px) {
+     margin: auto;
+     height: ${LARGE_CARD}px;
+     width: ${LARGE_CARD}px;
+     > img {
+       position: absolute;
+       height: ${LARGE_CARD}px;
+       width: ${LARGE_CARD}px;
+     }
+   }
 `;
 
 const cardOverlay = css`
@@ -136,7 +147,8 @@ export function Card({ firebaseDoc }: CardProps) {
   const { positive, negative } = votes;
   const totalVotes = positive + negative;
 
-  // use Math.round to get a number with a single decimal place, but only if it's not zero
+  // use Math.round to get a number with a single decimal place, but only if
+  // it's not zero
   const percentPositive =
     totalVotes > 0 ? Math.round((positive / totalVotes) * 1000) / 10 : 0;
   const percentNegative = Math.round((100 - percentPositive) * 10) / 10;

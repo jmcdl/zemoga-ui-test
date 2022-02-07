@@ -1,6 +1,6 @@
 import { IconButton } from "../shared/styled-components";
 import { css, Theme } from "@emotion/react";
-import { View } from "./VotingCardsContainer";
+import { ViewSelection } from "./VotingCardsContainer";
 import { thumbsDownColor, thumbsUpColor } from "src/styles";
 
 const thumbButton = css`

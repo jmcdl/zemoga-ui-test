@@ -87,3 +87,7 @@ export const thumbsDownColor = (theme: Theme) => css`
     background-color: ${theme.colors.yellowNegativeLight};
   }
 `;
+
+
+export const SMALL_CARD = 300;
+export const LARGE_CARD = 350;

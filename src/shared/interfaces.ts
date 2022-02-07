@@ -18,3 +18,5 @@ export interface CelebrityDocument {
 }
 
 export type VoteSelection = "up" | "down" | null;
+
+export type ViewSelection = "grid" | "list";
