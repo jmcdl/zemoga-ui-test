@@ -21,7 +21,7 @@ const cardOverlay = css`
   background: linear-gradient(
     90deg,
     rgba(0, 0, 0, 0.0001) 0%,
-    #888888 19.79%,
+    #888888 13.79%,
     #666666 50%,
     rgba(51, 51, 51, 0.6) 71.88%
   );
