@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { connectStorageEmulator, getStorage } from "firebase/storage";
 import {
   collection,
@@ -27,7 +26,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore();
-getAnalytics(app);
 
 export const getCelebrityDocRef = (docId?: string): DocumentReference =>
   doc(collection(db, "celebrities"), docId);
