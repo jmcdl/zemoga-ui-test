@@ -1,7 +1,7 @@
 import { IconButton } from "../shared/styled-components";
 import { css, Theme } from "@emotion/react";
-import { Vote } from "./Card";
 import { Dispatch, SetStateAction } from "react";
+import { Vote } from "src/shared/interfaces";
 
 const voteButton = (theme: Theme, { vote }: { vote: Vote }) => css`
   height: 38px;

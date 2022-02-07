@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { css, Theme } from "@emotion/react";
-import { useCollection } from "react-firebase-hooks/firestore";
+import { css } from "@emotion/react";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import { collection } from "firebase/firestore";
 import data from "src/__mocks__/data.json";
 import { Card } from "./Card";
@@ -28,8 +28,8 @@ const gridContainer = (itemCount: number) => css`
 export function VotingCardsContainer() {
   const [selectedView, setSelectedView] = useState<View>("list");
 
-  // const [value, loading, error] = useCollection(collection(db, "celebrities"));
-  // console.log({ value, loading, error });
+  const [value, loading, error] = useCollectionData(collection(db, "celebrities"));
+  console.log({ value, loading, error });
 
   const itemCount = data.data.length;
   console.log("itemCount", itemCount);
