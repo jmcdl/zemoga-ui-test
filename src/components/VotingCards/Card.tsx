@@ -18,16 +18,16 @@ const card = css`
     height: ${SMALL_CARD}px;
     width: ${SMALL_CARD}px;
   }
-   @media all and (min-width: 768px) {
-     margin: auto;
-     height: ${LARGE_CARD}px;
-     width: ${LARGE_CARD}px;
-     > img {
-       position: absolute;
-       height: ${LARGE_CARD}px;
-       width: ${LARGE_CARD}px;
-     }
-   }
+  @media all and (min-width: 768px) {
+    margin: auto;
+    height: ${LARGE_CARD}px;
+    width: ${LARGE_CARD}px;
+    > img {
+      position: absolute;
+      height: ${LARGE_CARD}px;
+      width: ${LARGE_CARD}px;
+    }
+  }
 `;
 
 const cardOverlay = css`
@@ -46,7 +46,6 @@ const card__title = (theme: Theme) => css`
   color: ${theme.colors.white};
   height: 40%;
   font-size: 30px;
-  line-height: 36px;
   align-items: flex-end;
 `;
 
@@ -54,7 +53,6 @@ const card__description = (theme: Theme) => css`
   display: flex;
   color: ${theme.colors.white};
   font-size: 15px;
-  line-height: 18px;
   padding: 8px 40px;
   overflow: hidden;
 `;
@@ -65,7 +63,6 @@ const card__lastUpdated = (theme: Theme) => css`
   color: ${theme.colors.white};
   font-size: 12px;
   font-weight: 700;
-  line-height: 14px;
   padding: 8px 40px;
 `;
 
@@ -79,11 +76,15 @@ const card__actions = (
   color: ${theme.colors.white};
   font-size: 12px;
   font-weight: 700;
-  line-height: 14px;
   padding: 8px 16px;
   margin-left: 70px;
   margin-right: 10px;
   text-transform: capitalize;
+  @media all and (min-width: 768px) {
+    padding: 8px 32px;
+    margin-left: 90px;
+    height: 46px;
+  }
 `;
 
 const votesGauge = css`
