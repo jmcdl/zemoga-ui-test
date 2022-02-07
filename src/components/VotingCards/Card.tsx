@@ -1,8 +1,8 @@
+import { useState } from "react";
 import { css, Theme } from "@emotion/react";
 import { formatDistanceToNow } from "date-fns";
 import { ThumbButton } from "./ThumbButton";
 import { VoteButton } from "./VoteButton";
-import { useState } from "react";
 import { CelebrityDocument, Vote } from "src/shared/interfaces";
 
 const card = css`
@@ -132,7 +132,9 @@ export function Card({
   const winningCard =
     percentPositive > percentNegative ? "thumbs up" : "thumbs down";
 
-  const timeSinceLastVote = formatDistanceToNow(new Date(lastUpdated));
+  const timeSinceLastVote = lastUpdated ? formatDistanceToNow(new Date(lastUpdated)) : null;
+
+  const lastUpdateMsg = timeSinceLastVote ? `${timeSinceLastVote} in ${category}` : "Be the first to vote!"
 
   const truncatedDescription =
     description.length > 60 ? `${description.slice(0, 60)}...` : description;
@@ -153,7 +155,7 @@ export function Card({
         </div>
         <div css={card__description}>{truncatedDescription}</div>
         <div css={card__lastUpdated}>
-          {timeSinceLastVote} in {category}
+          {lastUpdateMsg}
         </div>
         <div css={(theme) => card__actions(theme, { hasVoted })}>
           {!hasVoted && (
