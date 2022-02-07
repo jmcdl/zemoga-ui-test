@@ -25,12 +25,14 @@ const voteButton = (
 
 interface Props {
   voteSelection: VoteSelection;
+  setVoteSelection: Dispatch<SetStateAction<VoteSelection>>;
   hasVoted: boolean;
   setHasVoted: Dispatch<SetStateAction<boolean>>;
   submitVote: (voteSelection: VoteSelection) => Promise<void>;
 }
 export function VoteButton({
   voteSelection,
+  setVoteSelection,
   hasVoted,
   setHasVoted,
   submitVote,
@@ -40,8 +42,9 @@ export function VoteButton({
     if (hasVoted) {
       setHasVoted(false);
     } else {
-      await submitVote(voteSelection);
       setHasVoted(true);
+      setVoteSelection(null)
+      await submitVote(voteSelection);
     }
   };
 

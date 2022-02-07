@@ -205,6 +205,7 @@ export function Card({ firebaseDoc }: CardProps) {
           )}
           <VoteButton
             voteSelection={voteSelection}
+            setVoteSelection={setVoteSelection}
             hasVoted={hasVoted}
             setHasVoted={setHasVoted}
             submitVote={submitVote}
