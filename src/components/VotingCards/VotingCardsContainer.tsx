@@ -1,12 +1,15 @@
-import { css, Theme } from "@emotion/react";
 import { useState } from "react";
-import data from "../../__mocks__/data.json";
+import { css, Theme } from "@emotion/react";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { collection } from "firebase/firestore";
+import data from "src/__mocks__/data.json";
 import { Card } from "./Card";
+import { db } from "src/utils/firebase";
 
 export type View = "grid" | "list";
 
-const MOBILE_CARD_HEIGHT = 300
-const MOBILE_CARD_WIDTH = 300
+const MOBILE_CARD_HEIGHT = 300;
+const MOBILE_CARD_WIDTH = 300;
 
 const listContainer = (itemCount: number) => css`
   display: grid;
@@ -24,6 +27,9 @@ const gridContainer = (itemCount: number) => css`
 
 export function VotingCardsContainer() {
   const [selectedView, setSelectedView] = useState<View>("list");
+
+  // const [value, loading, error] = useCollection(collection(db, "celebrities"));
+  // console.log({ value, loading, error });
 
   const itemCount = data.data.length;
   console.log("itemCount", itemCount);

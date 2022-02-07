@@ -4,6 +4,7 @@ import { formatDistanceToNow } from "date-fns";
 import { ThumbButton } from "./ThumbButton";
 import { VoteButton } from "./VoteButton";
 import { CelebrityDocument, Vote } from "src/shared/interfaces";
+import { getCelebrityDoc } from "../../utils/firebase";
 
 const card = css`
   position: relative;
