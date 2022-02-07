@@ -3,12 +3,9 @@ import { css, Theme } from "@emotion/react";
 import { View } from "./VotingCardsContainer";
 import { thumbsDownColor, thumbsUpColor } from "src/styles";
 
-const thumbButton = (theme: Theme) => css`
+const thumbButton = css`
   height: 30px;
   min-width: 30px;
-  &:focus {
-    border: 2px solid ${theme.colors.white};
-  }
 `;
 
 const thumbButtonLarge = css`
@@ -18,16 +15,20 @@ const thumbButtonLarge = css`
   }
 `;
 
+const selectedStyle = (theme: Theme) => css`
+  border: 2px solid ${theme.colors.white};
+`;
+
 interface Props {
   ariaLabel: "thumbs up" | "thumbs down";
-  handleBlur?: () => void;
-  handleClick?: () => void;
   selectedView: View;
+  handleClick?: () => void;
+  isSelected?: boolean;
 }
 export function ThumbButton({
   ariaLabel,
-  handleBlur,
   handleClick,
+  isSelected,
   selectedView,
 }: Props) {
   const imgSrc =
@@ -39,9 +40,9 @@ export function ThumbButton({
         thumbButton,
         ariaLabel === "thumbs up" ? thumbsUpColor : thumbsDownColor,
         selectedView === "list" && thumbButtonLarge,
+        isSelected && selectedStyle,
       ]}
       onClick={handleClick}
-      onBlur={handleBlur}
     >
       <img src={imgSrc} alt={ariaLabel} />
     </IconButton>

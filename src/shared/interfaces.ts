@@ -3,13 +3,18 @@ export interface VoteCounts {
   negative: number;
 }
 
+export interface ImageUrls {
+  big: string;
+  small: string;
+}
+
 export interface CelebrityDocument {
   name: string;
   description: string;
   category: string;
-  picture: string;
+  imgUrls: ImageUrls;
   lastUpdated?: string;
   votes: VoteCounts;
 }
 
-export type Vote = "up" | "down" | null;
+export type VoteSelection = "up" | "down" | null;

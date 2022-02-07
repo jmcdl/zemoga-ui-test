@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { css } from "@emotion/react";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
 import { collection } from "firebase/firestore";
-import data from "src/__mocks__/data.json";
 import { Card } from "./Card";
 import { db } from "src/utils/firebase";
 import { LoadingSpinner } from "../shared/loading-spinner";
@@ -28,25 +27,24 @@ const gridContainer = (itemCount: number) => css`
 
 export function VotingCardsContainer() {
   const [selectedView, setSelectedView] = useState<View>("list");
+  const [value, loading, error] = useCollection(collection(db, "celebrities"));
 
-  const [value, loading, error] = useCollectionData(collection(db, "celebrities"));
-  console.log({ value, loading, error });
+  if (error) {
+    return <main>something went wrong</main>;
+  }
+
   if (loading) {
     return (
       <main
-        css={[
-          selectedView === "list"
-            ? listContainer(1)
-            : gridContainer(1),
-        ]}
+        css={[selectedView === "list" ? listContainer(1) : gridContainer(1)]}
       >
         <LoadingSpinner />
       </main>
     );
   }
 
-  const itemCount = data.data.length;
-  console.log("itemCount", itemCount);
+  const itemCount = value?.docs.length ?? 0;
+
   return (
     <main
       css={[
@@ -55,19 +53,8 @@ export function VotingCardsContainer() {
           : gridContainer(itemCount),
       ]}
     >
-      {data.data.map(
-        ({ name, description, category, picture, lastUpdated, votes }) => (
-          <Card
-            key={name}
-            name={name}
-            description={description}
-            category={category}
-            picture={picture}
-            lastUpdated={lastUpdated}
-            votes={votes}
-          />
-        )
-      )}
+      {value &&
+        value.docs.map((doc) => <Card key={doc.id} firebaseDoc={doc} />)}
     </main>
   );
 }

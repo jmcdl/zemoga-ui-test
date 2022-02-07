@@ -3,7 +3,10 @@ import { css, Theme } from "@emotion/react";
 import { formatDistanceToNow } from "date-fns";
 import { ThumbButton } from "./ThumbButton";
 import { VoteButton } from "./VoteButton";
-import { CelebrityDocument, Vote } from "src/shared/interfaces";
+import { VoteSelection } from "src/shared/interfaces";
+import { QueryDocumentSnapshot, setDoc } from "firebase/firestore";
+import { getCelebrityDocRef } from "../../utils/firebase";
+import { isCelebrityDocument } from "src/utils/type-guards";
 
 const card = css`
   position: relative;
@@ -53,8 +56,8 @@ const card__lastUpdated = (theme: Theme) => css`
   font-weight: 700;
   line-height: 14px;
   padding: 8px 40px;
-  text-transform: capitalize;
 `;
+
 const card__actions = (
   theme: Theme,
   { hasVoted }: { hasVoted: boolean }
@@ -116,38 +119,59 @@ const votesGauge__icon = css`
   padding: 6px;
 `;
 
-export function Card({
-  name,
-  description,
-  category,
-  picture,
-  lastUpdated,
-  votes,
-}: CelebrityDocument) {
+interface CardProps {
+  firebaseDoc: QueryDocumentSnapshot;
+}
+
+export function Card({ firebaseDoc }: CardProps) {
+  const data = firebaseDoc.data();
+  if (!isCelebrityDocument(data)) {
+    return null;
+  }
+  const { name, description, category, imgUrls, lastUpdated, votes } = data;
+
   const { positive, negative } = votes;
   const totalVotes = positive + negative;
+
   // use Math.round to get a number with a single decimal place, but only if it's not zero
-  const percentPositive = Math.round((positive / totalVotes) * 1000) / 10;
+  const percentPositive =
+    totalVotes > 0 ? Math.round((positive / totalVotes) * 1000) / 10 : 0;
   const percentNegative = Math.round((100 - percentPositive) * 10) / 10;
   const winningCard =
     percentPositive > percentNegative ? "thumbs up" : "thumbs down";
 
-  const timeSinceLastVote = lastUpdated ? formatDistanceToNow(new Date(lastUpdated)) : null;
+  const timeSinceLastVote = lastUpdated
+    ? formatDistanceToNow(new Date(lastUpdated))
+    : null;
 
-  const lastUpdateMsg = timeSinceLastVote ? `${timeSinceLastVote} in ${category}` : "Be the first to vote!"
+  const lastUpdateMsg = timeSinceLastVote
+    ? `${timeSinceLastVote} in ${category}`
+    : "Be the first to vote!";
 
   const truncatedDescription =
     description.length > 60 ? `${description.slice(0, 60)}...` : description;
 
-  const [vote, setVote] = useState<Vote>(null);
+  const [voteSelection, setVoteSelection] = useState<VoteSelection>(null);
   const [hasVoted, setHasVoted] = useState(false);
 
-  console.log("vote", vote);
-  console.log("hasVoted", hasVoted);
+  const submitVote = async (voteSelection: VoteSelection) => {
+    const newDoc = { ...data };
+    if (voteSelection === "up") {
+      newDoc.votes.positive = newDoc.votes.positive + 1;
+    }
+    if (voteSelection === "down") {
+      newDoc.votes.negative += 1;
+    }
+    try {
+      await setDoc(getCelebrityDocRef(firebaseDoc.id), newDoc);
+    } catch (error) {
+      console.error("error submitting vote", error);
+    }
+  };
 
   return (
     <div css={card}>
-      <img src={picture} alt={name} />
+      <img src={imgUrls.small} alt={name} />
       <div css={cardOverlay}>
         <div css={card__title}>
           <ThumbButton ariaLabel={winningCard} selectedView="list" />
@@ -155,7 +179,7 @@ export function Card({
         </div>
         <div css={card__description}>{truncatedDescription}</div>
         <div css={card__lastUpdated}>
-          {lastUpdateMsg}
+          {hasVoted ? lastUpdateMsg : "Thank you for voting!"}
         </div>
         <div css={(theme) => card__actions(theme, { hasVoted })}>
           {!hasVoted && (
@@ -163,41 +187,50 @@ export function Card({
               <ThumbButton
                 ariaLabel="thumbs up"
                 selectedView="list"
-                handleBlur={() => setVote(null)}
-                handleClick={() => setVote("up")}
+                isSelected={voteSelection === "up"}
+                handleClick={() =>
+                  setVoteSelection((prev) => (prev === "up" ? null : "up"))
+                }
               />
               <ThumbButton
                 ariaLabel="thumbs down"
                 selectedView="list"
-                handleBlur={() => setVote(null)}
-                handleClick={() => setVote("down")}
+                isSelected={voteSelection === "down"}
+                handleClick={() =>
+                  setVoteSelection((prev) => (prev === "down" ? null : "down"))
+                }
               />
             </>
           )}
           <VoteButton
-            vote={vote}
+            voteSelection={voteSelection}
             hasVoted={hasVoted}
             setHasVoted={setHasVoted}
+            submitVote={submitVote}
           />
         </div>
-        <div css={votesGauge}>
-          <span css={(theme) => votesGauge__left(theme, { percentPositive })}>
-            <img
-              src="/img/thumbs-up.svg"
-              alt="thumbs up"
-              css={votesGauge__icon}
-            />
-            {percentPositive}%
-          </span>
-          <span css={(theme) => votesGauge__right(theme, { percentNegative })}>
-            <img
-              src="/img/thumbs-down.svg"
-              alt="thumbs down"
-              css={votesGauge__icon}
-            />
-            {percentNegative}%
-          </span>
-        </div>
+        {totalVotes && (
+          <div css={votesGauge}>
+            <span css={(theme) => votesGauge__left(theme, { percentPositive })}>
+              <img
+                src="/img/thumbs-up.svg"
+                alt="thumbs up"
+                css={votesGauge__icon}
+              />
+              {percentPositive}%
+            </span>
+            <span
+              css={(theme) => votesGauge__right(theme, { percentNegative })}
+            >
+              <img
+                src="/img/thumbs-down.svg"
+                alt="thumbs down"
+                css={votesGauge__icon}
+              />
+              {percentNegative}%
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

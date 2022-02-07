@@ -1,17 +1,10 @@
 import { initializeApp } from "firebase/app";
-import { connectStorageEmulator, getStorage } from "firebase/storage";
 import {
   collection,
   doc,
   DocumentReference,
-  getDoc,
-  getDocs,
   getFirestore,
-  query,
-  setDoc,
-  where,
 } from "firebase/firestore";
-import { CelebrityDocument } from "../shared/interfaces";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBgEZdgN9Shktz7_R_kWsxLlhnsBNrCjqQ",
@@ -24,31 +17,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 export const db = getFirestore();
 
 export const getCelebrityDocRef = (docId?: string): DocumentReference =>
   doc(collection(db, "celebrities"), docId);
-
-export const getCelebritiesCollection = () =>
-  query(collection(db, "celebrities"));
-
-export const getCelebrityDoc = (name: string) =>
-  getDocs(query(collection(db, "celebrities"), where("name", "==", name)));
-
-const createCelebrityDoc = ({
-  name,
-  description,
-  category,
-  picture,
-  lastUpdated,
-  votes,
-}: CelebrityDocument) =>
-  setDoc(getCelebrityDocRef(), {
-    name,
-    description,
-    category,
-    picture,
-    lastUpdated,
-    votes,
-  });
