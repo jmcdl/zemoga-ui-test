@@ -1,11 +1,10 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import { css, Theme } from "@emotion/react";
+import { useEffect, useState } from "react";
+import { css } from "@emotion/react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection } from "firebase/firestore";
 import { db } from "src/utils/firebase";
 import { LoadingSpinner } from "../shared/loading-spinner";
 import { useMediaQuery } from "react-responsive";
-import { isSelectedViewValue } from "../../utils/type-guards";
 import { LARGE_CARD, SMALL_CARD } from "src/styles";
 import { SelectedView } from "src/shared/interfaces";
 import { CardContainer } from "./CardContainer";
