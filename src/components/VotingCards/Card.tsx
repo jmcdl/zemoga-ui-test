@@ -155,7 +155,8 @@ export function Card({ firebaseDoc }: CardProps) {
   const [hasVoted, setHasVoted] = useState(false);
 
   const submitVote = async (voteSelection: VoteSelection) => {
-    const newDoc = { ...data };
+    const todayAsISOString = new Date().toISOString();
+    const newDoc = { ...data, lastUpdated: todayAsISOString };
     if (voteSelection === "up") {
       newDoc.votes.positive = newDoc.votes.positive + 1;
     }
@@ -179,7 +180,7 @@ export function Card({ firebaseDoc }: CardProps) {
         </div>
         <div css={card__description}>{truncatedDescription}</div>
         <div css={card__lastUpdated}>
-          {hasVoted ? lastUpdateMsg : "Thank you for voting!"}
+          {!hasVoted ? lastUpdateMsg : "Thank you for voting!"}
         </div>
         <div css={(theme) => card__actions(theme, { hasVoted })}>
           {!hasVoted && (
