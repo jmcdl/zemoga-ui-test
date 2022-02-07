@@ -5,6 +5,7 @@ import { collection } from "firebase/firestore";
 import data from "src/__mocks__/data.json";
 import { Card } from "./Card";
 import { db } from "src/utils/firebase";
+import { LoadingSpinner } from "../shared/loading-spinner";
 
 export type View = "grid" | "list";
 
@@ -30,6 +31,19 @@ export function VotingCardsContainer() {
 
   const [value, loading, error] = useCollectionData(collection(db, "celebrities"));
   console.log({ value, loading, error });
+  if (loading) {
+    return (
+      <main
+        css={[
+          selectedView === "list"
+            ? listContainer(1)
+            : gridContainer(1),
+        ]}
+      >
+        <LoadingSpinner />
+      </main>
+    );
+  }
 
   const itemCount = data.data.length;
   console.log("itemCount", itemCount);
