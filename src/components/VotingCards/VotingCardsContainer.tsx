@@ -6,9 +6,9 @@ import { Card } from "./Card";
 import { db } from "src/utils/firebase";
 import { LoadingSpinner } from "../shared/loading-spinner";
 import { useMediaQuery } from "react-responsive";
-import { isViewSelectValue } from "../../utils/type-guards";
+import { isSelectedViewValue } from "../../utils/type-guards";
 import { LARGE_CARD, SMALL_CARD } from "src/styles";
-import { ViewSelection } from "src/shared/interfaces";
+import { SelectedView } from "src/shared/interfaces";
 
 const gridContainer = (itemCount: number) => css`
   display: grid;
@@ -20,6 +20,12 @@ const gridContainer = (itemCount: number) => css`
   @media all and (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(${Math.ceil(itemCount / 2)}, ${LARGE_CARD}px);
+    overflow: auto;
+    margin: 0;
+  }
+  @media all and (min-width: 1100px) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(${Math.ceil(itemCount / 3)}, ${LARGE_CARD}px);
     overflow: auto;
     margin: 0;
   }
@@ -57,14 +63,14 @@ const loadingStyle = css`
 `;
 
 export function VotingCardsContainer() {
-  const [selectedView, setSelectedView] = useState<ViewSelection>("grid");
+  const [selectedView, setSelectedView] = useState<SelectedView>("grid");
   console.log("selectedView", selectedView);
   const isMobile = useMediaQuery({ maxWidth: 768 });
   console.log("isMobile", isMobile);
   const [value, loading, error] = useCollection(collection(db, "celebrities"));
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    if (isViewSelectValue(event.target.value)) {
+    if (isSelectedViewValue(event.target.value)) {
       setSelectedView(event.target.value);
     }
   };
@@ -103,7 +109,7 @@ export function VotingCardsContainer() {
       >
         {loading && <LoadingSpinner />}
         {value &&
-          value.docs.map((doc) => <Card key={doc.id} firebaseDoc={doc} />)}
+          value.docs.map((doc) => <Card key={doc.id} firebaseDoc={doc} selectedView={selectedView}/>)}
       </div>
     </main>
   );

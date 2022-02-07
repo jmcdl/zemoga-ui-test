@@ -1,4 +1,4 @@
-import { CelebrityDocument, ViewSelection } from "../shared/interfaces";
+import { CelebrityDocument, SelectedView } from "../shared/interfaces";
 
 export const isCelebrityDocument = (obj: unknown): obj is CelebrityDocument =>
   typeof obj !== "undefined" &&
@@ -9,5 +9,5 @@ export const isCelebrityDocument = (obj: unknown): obj is CelebrityDocument =>
   Object.prototype.hasOwnProperty.call(obj, "imgUrls") &&
   Object.prototype.hasOwnProperty.call(obj, "votes");
 
-export const isViewSelectValue = (value: string): value is ViewSelection =>
+export const isSelectedViewValue = (value: string): value is SelectedView =>
   value === "grid" || value === "list";

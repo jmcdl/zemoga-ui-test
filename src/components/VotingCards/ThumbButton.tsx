@@ -1,7 +1,7 @@
 import { IconButton } from "../shared/styled-components";
 import { css, Theme } from "@emotion/react";
-import { ViewSelection } from "./VotingCardsContainer";
 import { thumbsDownColor, thumbsUpColor } from "src/styles";
+import { SelectedView } from "src/shared/interfaces";
 
 const thumbButton = css`
   height: 30px;
@@ -21,7 +21,7 @@ const selectedStyle = (theme: Theme) => css`
 
 interface Props {
   ariaLabel: "thumbs up" | "thumbs down";
-  selectedView: View;
+  selectedView: SelectedView;
   handleClick?: () => void;
   isSelected?: boolean;
 }
@@ -33,6 +33,7 @@ export function ThumbButton({
 }: Props) {
   const imgSrc =
     ariaLabel === "thumbs up" ? "/img/thumbs-up.svg" : "/img/thumbs-down.svg";
+  console.log("selectedView", selectedView);
   return (
     <IconButton
       aria-label={ariaLabel}

@@ -1,17 +1,17 @@
 import { IconButton } from "../shared/styled-components";
 import { css, Theme } from "@emotion/react";
 import { Dispatch, SetStateAction } from "react";
-import { VoteSelection } from "src/shared/interfaces";
+import { SelectedVote } from "src/shared/interfaces";
 
 const voteButton = (
   theme: Theme,
-  { voteSelection }: { voteSelection: VoteSelection }
+  { selectedVote }: { selectedVote: SelectedVote }
 ) => css`
   height: 38px;
   min-width: 107px;
   color: ${theme.colors.white};
   ${
-    voteSelection
+    selectedVote
       ? `background-color: rgba(48, 48, 48, 0.6)`
       : `background-color: ${theme.colors.darkerBackground}`
   };
@@ -24,14 +24,14 @@ const voteButton = (
 `;
 
 interface Props {
-  voteSelection: VoteSelection;
-  setVoteSelection: Dispatch<SetStateAction<VoteSelection>>;
+  selectedVote: SelectedVote;
+  setVoteSelection: Dispatch<SetStateAction<SelectedVote>>;
   hasVoted: boolean;
   setHasVoted: Dispatch<SetStateAction<boolean>>;
-  submitVote: (voteSelection: VoteSelection) => Promise<void>;
+  submitVote: (voteSelection: SelectedVote) => Promise<void>;
 }
 export function VoteButton({
-  voteSelection,
+  selectedVote,
   setVoteSelection,
   hasVoted,
   setHasVoted,
@@ -44,14 +44,14 @@ export function VoteButton({
     } else {
       setHasVoted(true);
       setVoteSelection(null)
-      await submitVote(voteSelection);
+      await submitVote(selectedVote);
     }
   };
 
   return (
     <IconButton
       aria-label={hasVoted ? "Vote Again" : "Vote Now"}
-      css={(theme) => voteButton(theme, { voteSelection })}
+      css={(theme) => voteButton(theme, { selectedVote })}
       onClick={handleVoteClick}
     >
       {hasVoted ? "Vote Again" : "Vote Now"}

@@ -3,7 +3,7 @@ import { css, Theme } from "@emotion/react";
 import { formatDistanceToNow } from "date-fns";
 import { ThumbButton } from "./ThumbButton";
 import { VoteButton } from "./VoteButton";
-import { VoteSelection } from "src/shared/interfaces";
+import { SelectedView, SelectedVote } from "src/shared/interfaces";
 import { QueryDocumentSnapshot, setDoc } from "firebase/firestore";
 import { getCelebrityDocRef } from "../../utils/firebase";
 import { isCelebrityDocument } from "src/utils/type-guards";
@@ -47,6 +47,15 @@ const card__title = (theme: Theme) => css`
   height: 40%;
   font-size: 30px;
   align-items: flex-end;
+  @media all and (min-width: 768px) {
+    height: 48%;
+  }
+  @media all and (min-width: 1100px) {
+    font-size: 36px;
+    > button {
+      margin-right: 6px;
+    }
+  }
 `;
 
 const card__description = (theme: Theme) => css`
@@ -92,7 +101,7 @@ const votesGauge = css`
   bottom: 0;
   display: flex;
   width: 100%;
-  height: 3rem;
+  height: 36px;
 `;
 
 const votesGauge__left = (
@@ -133,10 +142,11 @@ const votesGauge__icon = css`
 
 interface CardProps {
   firebaseDoc: QueryDocumentSnapshot;
+  selectedView: SelectedView;
 }
 
-export function Card({ firebaseDoc }: CardProps) {
-  const [voteSelection, setVoteSelection] = useState<VoteSelection>(null);
+export function Card({ firebaseDoc, selectedView }: CardProps) {
+  const [selectedVote, setSelectedVote] = useState<SelectedVote>(null);
   const [hasVoted, setHasVoted] = useState(false);
 
   const data = firebaseDoc.data();
@@ -167,7 +177,7 @@ export function Card({ firebaseDoc }: CardProps) {
   const truncatedDescription =
     description.length > 60 ? `${description.slice(0, 60)}...` : description;
 
-  const submitVote = async (voteSelection: VoteSelection) => {
+  const submitVote = async (voteSelection: SelectedVote) => {
     const todayAsISOString = new Date().toISOString();
     const newDoc = { ...data, lastUpdated: todayAsISOString };
     if (voteSelection === "up") {
@@ -200,25 +210,25 @@ export function Card({ firebaseDoc }: CardProps) {
             <>
               <ThumbButton
                 ariaLabel="thumbs up"
-                selectedView="list"
-                isSelected={voteSelection === "up"}
+                selectedView={selectedView}
+                isSelected={selectedVote === "up"}
                 handleClick={() =>
-                  setVoteSelection((prev) => (prev === "up" ? null : "up"))
+                  setSelectedVote((prev) => (prev === "up" ? null : "up"))
                 }
               />
               <ThumbButton
                 ariaLabel="thumbs down"
-                selectedView="list"
-                isSelected={voteSelection === "down"}
+                selectedView={selectedView}
+                isSelected={selectedVote === "down"}
                 handleClick={() =>
-                  setVoteSelection((prev) => (prev === "down" ? null : "down"))
+                  setSelectedVote((prev) => (prev === "down" ? null : "down"))
                 }
               />
             </>
           )}
           <VoteButton
-            voteSelection={voteSelection}
-            setVoteSelection={setVoteSelection}
+            selectedVote={selectedVote}
+            setVoteSelection={setSelectedVote}
             hasVoted={hasVoted}
             setHasVoted={setHasVoted}
             submitVote={submitVote}
