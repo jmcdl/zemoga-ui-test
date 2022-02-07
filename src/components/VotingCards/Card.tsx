@@ -3,6 +3,7 @@ import { formatDistanceToNow } from "date-fns";
 import { ThumbButton } from "./ThumbButton";
 import { VoteButton } from "./VoteButton";
 import { useState } from "react";
+import { CelebrityDocument, Vote } from "src/shared/interfaces";
 
 const card = css`
   position: relative;
@@ -115,16 +116,6 @@ const votesGauge__icon = css`
   padding: 6px;
 `;
 
-export type Vote = "up" | "down" | null;
-
-interface CardProps {
-  name: string;
-  description: string;
-  category: string;
-  picture: string;
-  lastUpdated: string;
-  votes: { positive: number; negative: number };
-}
 export function Card({
   name,
   description,
@@ -132,7 +123,7 @@ export function Card({
   picture,
   lastUpdated,
   votes,
-}: CardProps) {
+}: CelebrityDocument) {
   const { positive, negative } = votes;
   const totalVotes = positive + negative;
   // use Math.round to get a number with a single decimal place, but only if it's not zero
