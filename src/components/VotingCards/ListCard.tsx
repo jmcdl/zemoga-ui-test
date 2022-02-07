@@ -46,6 +46,9 @@ const cardOverlay__rightColumn = css`
   flex-direction: column;
   flex: 2;
   height: 50%;
+  @media all and (min-width: 1100px) {
+    height: 60%;
+  }
 `;
 
 const card__title = (theme: Theme) => css`
@@ -70,6 +73,9 @@ const card__description = (theme: Theme) => css`
   color: ${theme.colors.white};
   font-size: 14px;
   overflow: hidden;
+  @media all and (min-width: 1100px) {
+    font-size: 18px;
+  }
 `;
 
 const card__lastUpdated = (theme: Theme) => css`
@@ -80,6 +86,9 @@ const card__lastUpdated = (theme: Theme) => css`
   font-size: 12px;
   font-weight: 700;
   padding: 8px 16px;
+  @media all and (min-width: 1100px) {
+    font-size: 17px;
+  }
 `;
 
 const card__actions = (
@@ -192,7 +201,7 @@ export function ListCard({
       <div css={cardOverlay}>
         <div css={cardOverlay__columns}>
           <div css={cardOverlay__leftColumn}>
-            <ThumbButton ariaLabel={winningCard} selectedView="list" />
+            <ThumbButton ariaLabel={winningCard} selectedView={selectedView} />
           </div>
           <div css={cardOverlay__middleColumn}>
             <div css={card__title}>{name}</div>
@@ -229,6 +238,7 @@ export function ListCard({
               )}
               <VoteButton
                 selectedVote={selectedVote}
+                selectedView={selectedView}
                 setVoteSelection={setSelectedVote}
                 hasVoted={hasVoted}
                 setHasVoted={setHasVoted}

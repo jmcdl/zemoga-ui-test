@@ -1,11 +1,14 @@
 import { IconButton } from "../shared/styled-components";
 import { css, keyframes, Theme } from "@emotion/react";
 import { Dispatch, SetStateAction, useState } from "react";
-import { SelectedVote } from "src/shared/interfaces";
+import { SelectedView, SelectedVote } from "src/shared/interfaces";
 
 const voteButton = (
   theme: Theme,
-  { selectedVote }: { selectedVote: SelectedVote }
+  {
+    selectedVote,
+    selectedView,
+  }: { selectedVote: SelectedVote; selectedView: SelectedView }
 ) => css`
   height: 38px;
   min-width: 107px;
@@ -18,7 +21,13 @@ const voteButton = (
   align-items: center;
   justify-content: center;
   font-size: 14px;
-  line-height: 18px;
+  ${selectedView === "list" &&
+  `
+  @media all and (min-width: 1100px) {
+    height: 45px;
+    min-width: 135px;
+    font-size: 18px;
+  }`};
 `;
 
 const shake = keyframes`  
@@ -35,6 +44,7 @@ const shakeAnimation = css`
 
 interface Props {
   selectedVote: SelectedVote;
+  selectedView: SelectedView;
   setVoteSelection: Dispatch<SetStateAction<SelectedVote>>;
   hasVoted: boolean;
   setHasVoted: Dispatch<SetStateAction<boolean>>;
@@ -42,6 +52,7 @@ interface Props {
 }
 export function VoteButton({
   selectedVote,
+  selectedView,
   setVoteSelection,
   hasVoted,
   setHasVoted,
@@ -67,7 +78,7 @@ export function VoteButton({
     <IconButton
       aria-label={hasVoted ? "Vote Again" : "Vote Now"}
       css={[
-        (theme) => voteButton(theme, { selectedVote }),
+        (theme) => voteButton(theme, { selectedVote, selectedView }),
         showErrorShake && shakeAnimation,
       ]}
       onClick={handleVoteClick}

@@ -179,7 +179,7 @@ export function GridCard({
       />
       <div css={cardOverlay}>
         <div css={card__title}>
-          <ThumbButton ariaLabel={winningCard} selectedView="list" />
+          <ThumbButton ariaLabel={winningCard} selectedView={selectedView} />
           {name}
         </div>
         <div css={card__description}>{truncatedDescription}</div>
