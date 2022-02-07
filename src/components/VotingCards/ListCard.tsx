@@ -3,6 +3,7 @@ import { css, Theme } from "@emotion/react";
 import { ThumbButton } from "./ThumbButton";
 import { VoteButton } from "./VoteButton";
 import { ImageUrls, SelectedView, SelectedVote } from "src/shared/interfaces";
+import { VotesGauge } from "./VotesGauge";
 
 const card = css`
   position: relative;
@@ -110,50 +111,6 @@ const card__actions = (theme: Theme) => css`
   }
 `;
 
-const votesGauge = css`
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  width: 100%;
-  height: 36px;
-`;
-
-const votesGauge__left = (
-  theme: Theme,
-  { percentPositive }: { percentPositive: number }
-) => css`
-  position: relative;
-  display: flex;
-  width: ${percentPositive}%;
-  align-items: center;
-  padding-left: 1rem;
-  background-color: ${theme.colors.greenPositiveOverlay};
-  color: ${theme.colors.white};
-  font-size: 18px;
-  justify-content: flex-start;
-`;
-
-const votesGauge__right = (
-  theme: Theme,
-  { percentNegative }: { percentNegative: number }
-) =>
-  css`
-    display: flex;
-    background-color: ${theme.colors.yellowNegativeOverlay};
-    color: ${theme.colors.white};
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 1rem;
-    width: ${percentNegative}%;
-    font-size: 18px;
-  `;
-
-const votesGauge__icon = css`
-  height: 15px;
-  width: 15px;
-  padding: 6px;
-`;
-
 interface CardProps {
   imgUrls: ImageUrls;
   winningCard: SelectedVote;
@@ -245,26 +202,10 @@ export function ListCard({
           </div>
         </div>
         {totalVotes && (
-          <div css={votesGauge}>
-            <span css={(theme) => votesGauge__left(theme, { percentPositive })}>
-              <img
-                src="/img/thumbs-up.svg"
-                alt="thumbs up"
-                css={votesGauge__icon}
-              />
-              {percentPositive}%
-            </span>
-            <span
-              css={(theme) => votesGauge__right(theme, { percentNegative })}
-            >
-              <img
-                src="/img/thumbs-down.svg"
-                alt="thumbs down"
-                css={votesGauge__icon}
-              />
-              {percentNegative}%
-            </span>
-          </div>
+          <VotesGauge
+            percentNegative={percentNegative}
+            percentPositive={percentPositive}
+          />
         )}
       </div>
     </div>
