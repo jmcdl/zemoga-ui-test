@@ -1,6 +1,6 @@
 import { ThumbButton } from "./ThumbButton";
 import { VoteButton } from "./VoteButton";
-import { SelectedView, SelectedVote } from "../../shared/interfaces";
+import { SelectedView, SelectedVote } from "src/shared/interfaces";
 import { Dispatch, SetStateAction } from "react";
 import { css, Theme } from "@emotion/react";
 

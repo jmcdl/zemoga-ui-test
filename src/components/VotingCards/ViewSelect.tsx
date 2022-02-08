@@ -1,5 +1,5 @@
 import { css, Theme } from "@emotion/react";
-import { ALL_VIEWS, SelectedView } from "../../shared/interfaces";
+import { ALL_VIEWS, SelectedView } from "src/shared/interfaces";
 import { Dispatch, SetStateAction, useState } from "react";
 
 const select__container = (

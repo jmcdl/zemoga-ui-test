@@ -1,12 +1,9 @@
 import { useState } from "react";
-import {
-  SelectedView,
-  SelectedVote,
-} from "../../shared/interfaces";
-import { isCelebrityDocument } from "../../utils/type-guards";
+import { SelectedView, SelectedVote } from "src/shared/interfaces";
+import { isCelebrityDocument } from "src/utils/type-guards";
 import { formatDistanceToNow } from "date-fns";
 import { QueryDocumentSnapshot, setDoc } from "firebase/firestore";
-import { getCelebrityDocRef } from "../../utils/firebase";
+import { getCelebrityDocRef } from "src/utils/firebase";
 import { GridCard } from "./GridCard";
 import { ListCard } from "./ListCard";
 import { useMediaQuery } from "react-responsive";
@@ -56,6 +53,7 @@ export function CardContainer({ firebaseDoc, selectedView }: CardProps) {
       ? `${description.slice(0, 100)}...`
       : description;
   };
+  
   const submitVote = async (selectedVote: SelectedVote) => {
     const todayAsISOString = new Date().toISOString();
     const newDoc = { ...data, lastUpdated: todayAsISOString };
@@ -71,6 +69,7 @@ export function CardContainer({ firebaseDoc, selectedView }: CardProps) {
       console.error("error submitting vote", error);
     }
   };
+
   if (selectedView === "grid") {
     return (
       <GridCard
@@ -91,6 +90,7 @@ export function CardContainer({ firebaseDoc, selectedView }: CardProps) {
       />
     );
   }
+
   if (selectedView === "list") {
     return (
       <ListCard
