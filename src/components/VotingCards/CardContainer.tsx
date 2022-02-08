@@ -59,7 +59,7 @@ export function CardContainer({ firebaseDoc, selectedView }: CardProps) {
     const todayAsISOString = new Date().toISOString();
     const newDoc = { ...data, lastUpdated: todayAsISOString };
     if (selectedVote === "thumbs up") {
-      newDoc.votes.positive = newDoc.votes.positive + 1;
+      newDoc.votes.positive += 1;
     }
     if (selectedVote === "thumbs down") {
       newDoc.votes.negative += 1;
