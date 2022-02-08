@@ -21,6 +21,7 @@ export function CardContainer({ firebaseDoc, selectedView }: CardProps) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
 
   const data = firebaseDoc.data();
+  // type guard validates data is of correct type and allows for proper type inference without using type coercion
   if (!isCelebrityDocument(data)) {
     return null;
   }
